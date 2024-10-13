@@ -2,6 +2,7 @@ package de.esempe.dating.core.photo;
 
 import java.io.UncheckedIOException;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,12 @@ public class PhotoService
 {
 	private FileSystem fs;
 
-	PhotoService(final FileSystem fs)
+	private Thumbnail thumbnail;
+
+	PhotoService(final FileSystem fs, final Thumbnail thumbnail)
 	{
 		this.fs = fs;
+		this.thumbnail = thumbnail;
 	}
 
 	public Optional<byte[]> download(final String name)
@@ -27,5 +31,18 @@ public class PhotoService
 		{
 			return Optional.empty();
 		}
+	}
+
+	public String upload(final byte[] imageBytes)
+	{
+		final String imageName = UUID.randomUUID().toString();
+
+		// First: store original image
+		this.fs.store(imageName + ".jpg", imageBytes);
+		// Second: store thumbnail
+		final byte[] thumbnailBytes = this.thumbnail.thumbnail(imageBytes);
+		this.fs.store(imageName + "thumb.jpg", thumbnailBytes);
+
+		return imageName;
 	}
 }

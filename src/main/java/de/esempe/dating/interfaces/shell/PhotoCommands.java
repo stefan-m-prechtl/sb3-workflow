@@ -3,6 +3,8 @@ package de.esempe.dating.interfaces.shell;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -36,4 +38,12 @@ class PhotoCommands
 			}
 		}).orElse("Photo nicht verfügbar");
 	}
+
+	@ShellMethod("Bild hochladen")
+	String uploadPhoto(final String filename) throws IOException
+	{
+		final byte[] bytes = Files.readAllBytes(Paths.get(filename));
+		return "Uploaded " + this.service.upload(bytes);
+	}
+
 }
