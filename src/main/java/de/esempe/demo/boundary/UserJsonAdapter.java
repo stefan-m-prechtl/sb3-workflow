@@ -18,6 +18,9 @@ import de.esempe.demo.domain.User;
 @JsonComponent
 public class UserJsonAdapter
 {
+	private static String FIELD_FIRSTNAME = "first";
+	private static String FIELD_LASTNAME = "last";
+
 	public static class UserJsonSerializer extends JsonSerializer<User>
 	{
 		@Override
@@ -25,8 +28,9 @@ public class UserJsonAdapter
 		{
 			generator.writeStartObject();
 
-			generator.writeStringField("first", user.getFirstname());
-			generator.writeStringField("last", user.getLastname());
+			// Get java values and write it into json string
+			generator.writeStringField(FIELD_FIRSTNAME, user.getFirstname());
+			generator.writeStringField(FIELD_LASTNAME, user.getLastname());
 
 			generator.writeEndObject();
 		}
@@ -39,11 +43,12 @@ public class UserJsonAdapter
 		{
 			// Create a User object
 			final User user = new User();
-
+			// Parse json string into a node
 			final JsonNode node = parser.getCodec().readTree(parser);
-			final String firstname = node.get("first").asText();
-			final String lastname = node.get("lastt").asText();
-
+			// Get json values
+			final String firstname = node.get(FIELD_FIRSTNAME).asText();
+			final String lastname = node.get(FIELD_LASTNAME).asText();
+			// Set java values
 			user.setFirstname(firstname);
 			user.setLastname(lastname);
 

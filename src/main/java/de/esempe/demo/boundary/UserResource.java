@@ -1,5 +1,6 @@
 package de.esempe.demo.boundary;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,15 @@ import de.esempe.demo.domain.User;
 @RequestMapping("user")
 public class UserResource
 {
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> getSysAdmin()
-	{
-		final User sysadm = new User();
-		sysadm.setFirstname("sysadm");
-		sysadm.setLastname("sysadm");
+	@Autowired
+	private UserRepository repository;
 
-		final var result = ResponseEntity.status(HttpStatus.OK).body(sysadm);
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Iterable<User>> getUsers()
+	{
+		final Iterable<User> all = this.repository.findAll();
+
+		final var result = ResponseEntity.status(HttpStatus.OK).body(all);
 		return result;
 	}
 }
