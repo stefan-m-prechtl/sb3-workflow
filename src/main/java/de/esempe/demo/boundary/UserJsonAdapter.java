@@ -18,6 +18,7 @@ import de.esempe.demo.domain.User;
 @JsonComponent
 public class UserJsonAdapter
 {
+	private static String FIELD_ID = "id";
 	private static String FIELD_FIRSTNAME = "first";
 	private static String FIELD_LASTNAME = "last";
 
@@ -29,6 +30,7 @@ public class UserJsonAdapter
 			generator.writeStartObject();
 
 			// Get java values and write it into json string
+			generator.writeNumberField(FIELD_ID, user.getId());
 			generator.writeStringField(FIELD_FIRSTNAME, user.getFirstname());
 			generator.writeStringField(FIELD_LASTNAME, user.getLastname());
 
@@ -45,7 +47,14 @@ public class UserJsonAdapter
 			final User user = new User();
 			// Parse json string into a node
 			final JsonNode node = parser.getCodec().readTree(parser);
-			// Get json values
+			// ID vorhanden?
+			if (null != node.get(FIELD_ID))
+			{
+				final int id = node.get(FIELD_ID).asInt();
+				user.setId(id);
+			}
+
+			// Musswerte
 			final String firstname = node.get(FIELD_FIRSTNAME).asText();
 			final String lastname = node.get(FIELD_LASTNAME).asText();
 			// Set java values
@@ -54,6 +63,5 @@ public class UserJsonAdapter
 
 			return user;
 		}
-
 	}
 }
