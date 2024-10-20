@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.esempe.demo.domain.PingResultRecord;
+import jakarta.annotation.security.PermitAll;
 
 @RestController
-@RequestMapping("ping")
+@RequestMapping("/ping")
 public class PingResource
 {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PermitAll
 	public ResponseEntity<PingResultRecord> getPing()
 	{
 		final LocalDateTime now = LocalDateTime.now();

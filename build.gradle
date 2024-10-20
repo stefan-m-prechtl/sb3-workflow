@@ -21,13 +21,7 @@ dependencies {
 	// Web-Services
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	
-	// für OpenAPI: Web-Root "demo" -->
-	// JSON: http://localhost:8080/demo/v3/api-docs
-	// YAML: http://localhost:8080/demov3/api-docs.yaml
-	// Swagger UI
-	//http://localhost:8080/demo/swagger-ui/index.html
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	
 	// Datenbank
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -36,15 +30,33 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	
 	
+	// für OpenAPI: Web-Root "demo" -->
+	// JSON: http://localhost:8080/demo/v3/api-docs
+	// YAML: http://localhost:8080/demov3/api-docs.yaml
+	// Swagger UI
+	//http://localhost:8080/demo/swagger-ui/index.html
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+	
+	
+	// ****************************************************************************
+	// Nicht-Spring
+	
+	// Guava
+	implementation 'com.google.guava:guava:31.1-jre'
+	// Json Web Token (JWT)
+	implementation 'com.auth0:java-jwt:3.18.3'
+	
+	// ****************************************************************************
+	// Alles fürs Testen
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.springframework.security:spring-security-test'
 	
-	// Nicht-Spring
-	implementation 'com.google.guava:guava:31.1-jre'
 	
-	// implementation 'org.springframework.boot:spring-boot-starter-security'
+	
+	
 	// implementation 'org.springframework.session:spring-session-core'
-	// testImplementation 'org.springframework.security:spring-security-test'
+	
 
 }
 
