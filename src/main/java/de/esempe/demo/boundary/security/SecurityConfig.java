@@ -17,10 +17,10 @@ public class SecurityConfig
 	{
 		http //
 				.authorizeHttpRequests(authorize -> authorize //
-						.requestMatchers("/ping").permitAll() //
-						.requestMatchers("/user").permitAll() //
+						// .requestMatchers("/ping").permitAll() //
 						// .requestMatchers("/user").authenticated() //
-						.anyRequest().authenticated() //
+						// während Entwicklung: keine Autorisierung
+						.anyRequest().permitAll() //
 				) //
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //
 				.csrf(csrf -> csrf.disable());

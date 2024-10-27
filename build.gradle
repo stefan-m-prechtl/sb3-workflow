@@ -1,18 +1,31 @@
 plugins {
 	id 'java'
 	id 'war'
+	id 'pmd'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-
 group = 'de.esempe'
-version = ''
+version = '0.1'
+
+tasks.named('war') {
+    archiveFileName.set('demo.war') // Set the desired WAR file name
+} 
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
+}
+
+pmd {
+    consoleOutput = false
+    toolVersion = "6.39.0"
+    rulesMinimumPriority = 3
+    ruleSetFiles = files("./config/pmd/pmdruleset.xml")
+    ruleSets = []
+    ignoreFailures = true
 }
 
 repositories {
@@ -55,11 +68,36 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testImplementation 'org.springframework.security:spring-security-test'
-	
+
 	
 	// implementation 'org.springframework.session:spring-session-core'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+	useJUnitPlatform {
+        includeTags("unit-test")
+        includeEngines("junit-jupiter")
+    }
 }
+
+// Tasks für Docker
+String currentDir = './src/main/docker'
+
+// Deploy WAR in (Auto-)Deploy-Verzeichnis vom Tomcat
+task (deployWar, type: Exec, group: 'deploy') {
+	dependsOn(war)
+	workingDir currentDir
+    commandLine 'sh','removewar.sh'
+}
+
+
+task (upDC, type: Exec, group: 'docker') {
+    workingDir currentDir
+    commandLine 'docker-compose','up', '-d'
+}
+
+task (downDC, type: Exec, group: 'docker') {
+    workingDir currentDir
+    commandLine 'docker-compose','down', '-t', '0'
+}
+

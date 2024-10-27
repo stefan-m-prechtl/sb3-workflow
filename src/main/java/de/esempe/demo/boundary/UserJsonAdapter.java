@@ -43,24 +43,15 @@ public class UserJsonAdapter
 		@Override
 		public User deserialize(final JsonParser parser, final DeserializationContext ctxt) throws IOException, JacksonException
 		{
-			// Create a User object
-			final User user = new User();
 			// Parse json string into a node
 			final JsonNode node = parser.getCodec().readTree(parser);
 			// ID vorhanden?
-			if (null != node.get(FIELD_ID))
-			{
-				final int id = node.get(FIELD_ID).asInt();
-				user.setId(id);
-			}
-
+			final int id = (node.get(FIELD_ID) != null) ? node.get(FIELD_ID).asInt() : -1;
 			// Musswerte
 			final String firstname = node.get(FIELD_FIRSTNAME).asText();
 			final String lastname = node.get(FIELD_LASTNAME).asText();
 			// Set java values
-			user.setFirstname(firstname);
-			user.setLastname(lastname);
-
+			final User user = User.createWithId(id, firstname, lastname);
 			return user;
 		}
 	}

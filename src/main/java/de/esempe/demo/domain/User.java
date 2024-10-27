@@ -29,14 +29,19 @@ public class User
 		this.id = -1;
 	}
 
+	// Für Json-Adapter
+	public static User createWithId(final int id, final String firstname, final String lastname)
+	{
+		final var result = new User();
+		result.id = id;
+		result.firstname = firstname;
+		result.lastname = lastname;
+		return result;
+	}
+
 	public int getId()
 	{
 		return this.id;
-	}
-
-	public void setId(final int id)
-	{
-		this.id = id;
 	}
 
 	public String getFirstname()
@@ -59,5 +64,4 @@ public class User
 		Preconditions.checkNotNull(lastname);
 		this.lastname = lastname;
 	}
-
 }
