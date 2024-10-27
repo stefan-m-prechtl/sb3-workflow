@@ -18,7 +18,8 @@ public class SecurityConfig
 		http //
 				.authorizeHttpRequests(authorize -> authorize //
 						.requestMatchers("/ping").permitAll() //
-						.requestMatchers("/user").authenticated() //
+						.requestMatchers("/user").permitAll() //
+						// .requestMatchers("/user").authenticated() //
 						.anyRequest().authenticated() //
 				) //
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //

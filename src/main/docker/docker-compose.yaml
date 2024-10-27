@@ -12,37 +12,39 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  # tomcat:
-  #  image: tomcat:9.0-jre17
-  #  container_name: tomcat
-  #  restart: always
-  #  ports:
-  #    - "8080:8080"
-  #  depends_on:
-  #    - db
+  tomcat:
+    build:
+      context: ./
+      dockerfile: tomcat.dockerfile
+    image: esempe_tomcat:latest
+    container_name: tomcat
+    restart: always
+    ports:
+    # Local/Docker
+      - "8085:8080"
+    depends_on:
+     - db
   #  environment:
   #    DB_HOST: postgresdb
   #    DB_PORT: 5432
   #    DB_USER: userdb
   #    DB_PASSWORD: geheim123
   #    DB_NAME: restdemodb
-  #  volumes:
-  #    - ./myapp:/usr/local/tomcat/webapps/myapp
-  #    - ./tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
-
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@info.de
-      PGADMIN_DEFAULT_PASSWORD: admin
-    depends_on:
-      - db
     volumes:
-      - pgadmindata:/var/lib/pgadmin
+      - ./webapps:/usr/local/tomcat/webapps/
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   ports:
+  #     - "8888:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@info.de
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - pgadmindata:/var/lib/pgadmin
 
 
 volumes:

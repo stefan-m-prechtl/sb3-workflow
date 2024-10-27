@@ -9,7 +9,7 @@ import de.esempe.demo.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>, AdditionalUserRepository
 {
-// Demo für manuelle SQL-Query
+	// Demo für manuelle SQL-Query
 	@Query(value = """
 			SELECT * FROM restdemo.t_user
 			""", nativeQuery = true)
