@@ -1,5 +1,5 @@
 # base image
-FROM tomcat:10.1.31-jdk21-temurin-noble
+FROM tomcat:10.1.31-jdk17-temurin-noble
 
 # copy libs JDBC-driver: Google Guava
 COPY postgresql-42.7.4.jar /usr/local/tomcat/lib/lib
