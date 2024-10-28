@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary;
+package de.esempe.workflow.boundary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +18,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.annotation.Rollback;
 
-import de.esempe.demo.domain.User;
+import de.esempe.workflow.domain.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

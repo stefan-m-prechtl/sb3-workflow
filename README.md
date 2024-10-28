@@ -1,6 +1,12 @@
 # springboot3
-Demo-App mit REST-API und Postgres-Datenbank.
+Workflow-App mit REST-API und 
+
+
+## Umgebung Docker
+- Tomcat
+- Postgres-Datenbank.
+- Mongo-Datenbank
 
 ## Themen
 - REST-API
-- JsON-Adapter
+- JSON-Adapter

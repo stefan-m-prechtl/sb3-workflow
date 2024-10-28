@@ -1,4 +1,4 @@
-package de.esempe.demo;
+package de.esempe.workflow;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import de.esempe.demo.boundary.PingResource;
-import de.esempe.demo.domain.PingResultRecord;
+import de.esempe.workflow.boundary.PingResource;
+import de.esempe.workflow.boundary.PingResultRecord;
 
 @SpringBootTest
-class DemoApplicationTests
+class WorkflowApplicationTests
 {
 	@Autowired
 	PingResource pingResource;

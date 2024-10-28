@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary.security;
+package de.esempe.workflow.boundary.security;
 
 import java.io.IOException;
 import java.util.ArrayList;

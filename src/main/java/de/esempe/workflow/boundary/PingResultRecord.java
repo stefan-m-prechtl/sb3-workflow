@@ -1,4 +1,4 @@
-package de.esempe.demo.domain;
+package de.esempe.workflow.boundary;
 
 import java.time.LocalDateTime;
 

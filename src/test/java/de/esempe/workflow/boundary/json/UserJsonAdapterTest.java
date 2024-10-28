@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary;
+package de.esempe.workflow.boundary.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.json.JsonContent;
 
-import de.esempe.demo.domain.User;
+import de.esempe.workflow.domain.User;
 
 @JsonTest
 @TestMethodOrder(OrderAnnotation.class)

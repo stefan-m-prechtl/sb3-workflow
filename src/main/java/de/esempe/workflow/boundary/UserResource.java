@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary;
+package de.esempe.workflow.boundary;
 
 import java.net.URI;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import de.esempe.demo.domain.User;
+import de.esempe.workflow.domain.User;
 
 @RestController
 @RequestMapping("user")

@@ -1,11 +1,11 @@
-package de.esempe.demo.boundary;
+package de.esempe.workflow.boundary;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import de.esempe.demo.domain.User;
+import de.esempe.workflow.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>, AdditionalUserRepository
 {

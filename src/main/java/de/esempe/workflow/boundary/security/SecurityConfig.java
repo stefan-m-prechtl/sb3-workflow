@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary.security;
+package de.esempe.workflow.boundary.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

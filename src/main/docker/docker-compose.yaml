@@ -1,6 +1,6 @@
 services:
 
-  db:
+  postgresdb:
     image: postgres:15
     container_name: postgresdb
     ports:
@@ -14,6 +14,14 @@ services:
       - pgdata:/var/lib/postgresql/data
       - ./sqlinit:/docker-entrypoint-initdb.d/
 
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
   tomcat:
     build:
       context: ./
@@ -24,8 +32,6 @@ services:
     ports:
     # Local/Docker
       - "8080:8080"
-    depends_on:
-     - db
     volumes:
       - ./webapps:/usr/local/tomcat/webapps/
 
@@ -38,10 +44,11 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@info.de
       PGADMIN_DEFAULT_PASSWORD: admin
     depends_on:
-      - db
+      - postgresdb
     volumes:
       - pgadmindata:/var/lib/pgadmin
 
 volumes:
   pgdata:
   pgadmindata:
+  mongodata:

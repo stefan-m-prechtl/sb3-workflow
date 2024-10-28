@@ -1,4 +1,4 @@
-package de.esempe.demo.boundary;
+package de.esempe.workflow.boundary.json;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import de.esempe.demo.domain.User;
+import de.esempe.workflow.domain.User;
 
 @JsonComponent
 public class UserJsonAdapter
@@ -46,7 +46,7 @@ public class UserJsonAdapter
 			// Parse json string into a node
 			final JsonNode node = parser.getCodec().readTree(parser);
 			// ID vorhanden?
-			final int id = (node.get(FIELD_ID) != null) ? node.get(FIELD_ID).asInt() : -1;
+			final int id = node.get(FIELD_ID) != null ? node.get(FIELD_ID).asInt() : -1;
 			// Musswerte
 			final String firstname = node.get(FIELD_FIRSTNAME).asText();
 			final String lastname = node.get(FIELD_LASTNAME).asText();
