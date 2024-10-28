@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Custom ruleset">
+	<description>
+		PMD Basic Configuration
+	</description>
+
+	<rule ref="category/java/bestpractices.xml">
+		<exclude name="SystemPrintln" />
+		<exclude name="JUnitTestContainsTooManyAsserts" />
+		<exclude name="ForLoopCanBeForeach" />
+	</rule>
+
+	<rule ref="category/java/codestyle.xml">
+		<exclude name="UselessParentheses" />
+		<exclude name="ShortVariable" />
+		<exclude name="AtLeastOneConstructor" />
+		<exclude name="OnlyOneReturn" />
+		<exclude name="UnnecessaryLocalBeforeReturn" />
+		<exclude name="CommentDefaultAccessModifier" />
+		<exclude name="FieldNamingConventions" />
+	</rule>
+	<rule ref="category/java/codestyle.xml/LongVariable">
+		<properties>
+			<property name="minimum" value="30" />
+		</properties>
+	</rule>
+	<rule ref="category/java/codestyle.xml/ShortClassName">
+    <properties>
+        <property name="minimum" value="3" />
+    </properties>
+</rule>
+	
+
+	<rule ref="category/java/design.xml">
+		<exclude name="LawOfDemeter" />
+		<exclude name="DataClass" />
+		<exclude name="SimplifyBooleanExpressions"/>		
+	</rule>
+	
+	<rule ref="category/java/design.xml/TooManyMethods">
+    <properties>
+        <property name="maxmethods" value="20" />
+    </properties>
+</rule>
+	
+
+</ruleset>
