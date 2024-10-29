@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -19,6 +20,7 @@ import de.esempe.workflow.domain.User;
 @JsonTest
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Tag("unit-test")
 public class UserJsonAdapterTest
 {
 	@Autowired

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,27 +24,7 @@ public class Workflow extends MongoDbObject
 	private Map<ObjectId, List<WorkflowTransition>> fromStateTransitions;
 	private Map<ObjectId, List<WorkflowTransition>> toStateTransitions;
 
-//	@UsedByJsonAdapter(WorkflowJsonAdapter.class)
-//	public static Workflow create(final ObjectId dbId, final UUID objId, final String name)
-//	{
-//		final var workflow = new Workflow(dbId, objId, name);
-//		return workflow;
-//	}
-//
-//	@UsedByJsonAdapter(WorkflowJsonAdapter.class)
-//	public static Workflow create(final UUID objId, final String name)
-//	{
-//		final var workflow = new Workflow(null, objId, name);
-//		return workflow;
-//	}
-
-	public static Workflow create(final String name)
-	{
-		final var state = new Workflow(name);
-		return state;
-	}
-
-	Workflow()
+	private Workflow()
 	{
 		super();
 		this.name = "";
@@ -54,19 +33,11 @@ public class Workflow extends MongoDbObject
 		this.toStateTransitions = new HashMap<>();
 	}
 
-	private Workflow(final UUID objId, final String name)
+	public static Workflow create(final String name)
 	{
-		super(objId);
-		this.name = name;
-		this.transitions = new HashSet<>();
-		this.fromStateTransitions = new HashMap<>();
-		this.toStateTransitions = new HashMap<>();
-	}
-
-	private Workflow(final String name)
-	{
-		this();
-		this.name = name;
+		final var result = new Workflow();
+		result.name = name;
+		return result;
 	}
 
 	public String getName()
@@ -81,7 +52,6 @@ public class Workflow extends MongoDbObject
 
 	public void addTransition(final WorkflowTransition transition)
 	{
-
 		final var fromState = transition.getFromState();
 		final var toState = transition.getToState();
 

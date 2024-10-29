@@ -8,6 +8,7 @@ import org.bson.json.JsonObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -16,15 +17,18 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import de.esempe.workflow.domain.WorkflowState;
 
 @DataMongoTest
+@ActiveProfiles("test")
 @Import(WorkflowStateRepositoryListener.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("Integrationstext WorkflowStateRepository/Mongo-DB")
+@Tag("integration-test")
 public class WorkflowStateRepositoryTest
 {
 	@Autowired
@@ -58,7 +62,7 @@ public class WorkflowStateRepositoryTest
 	void saveInsertTest()
 	{
 		final WorkflowState entity = WorkflowState.create("Start");
-		entity.setJsondData(new JsonObject("{ \"created\" : \"29.10.2024\""));
+		entity.setJsondData(new JsonObject("{ \"created\" : \"29.10.2024\"}"));
 
 		final WorkflowState savedEntity = this.objUnderTest.save(entity);
 		assertThat(savedEntity).isNotNull();

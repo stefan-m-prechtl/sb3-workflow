@@ -24,11 +24,25 @@ public class WorkflowTransition extends MongoDbObject
 
 	private TransistionType type;
 
-	WorkflowTransition()
+	private WorkflowTransition()
 	{
 		super();
 		this.name = "";
 		this.type = TransistionType.USER;
+	}
+
+	private WorkflowTransition(final String name, final WorkflowState fromState, final WorkflowState toState)
+	{
+		this();
+		this.name = name;
+		this.fromState = fromState;
+		this.toState = toState;
+	}
+
+	public static WorkflowTransition create(final String name, final WorkflowState fromState, final WorkflowState toState)
+	{
+		final var transition = new WorkflowTransition(name, fromState, toState);
+		return transition;
 	}
 
 	public String getName()

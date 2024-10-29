@@ -10,14 +10,16 @@ public class WorkflowRule extends MongoDbObject
 	private String name;
 	private String script;
 
-	WorkflowRule()
+	private WorkflowRule()
 	{
 	}
 
-	public WorkflowRule(final String name, final String script)
+	public static WorkflowRule create(final String name, final String script)
 	{
-		this.name = name;
-		this.script = script;
+		final var result = new WorkflowRule();
+		result.name = name;
+		result.script = script;
+		return result;
 	}
 
 	public String getScript()
