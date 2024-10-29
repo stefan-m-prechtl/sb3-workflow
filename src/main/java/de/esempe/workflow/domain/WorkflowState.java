@@ -1,5 +1,6 @@
 package de.esempe.workflow.domain;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 @Document(collection = "states")
 public class WorkflowState extends MongoDbObject
@@ -17,13 +19,7 @@ public class WorkflowState extends MongoDbObject
 	@Transient
 	private Optional<JsonObject> jsondata;
 
-	public static WorkflowState create(final String name)
-	{
-		final var state = new WorkflowState(name);
-		return state;
-	}
-
-	WorkflowState()
+	private WorkflowState()
 	{
 		this.name = "";
 		this.data = "";
@@ -38,10 +34,11 @@ public class WorkflowState extends MongoDbObject
 		this.jsondata = Optional.empty();
 	}
 
-	private WorkflowState(final String name)
+	public static WorkflowState create(final String name)
 	{
-		this();
-		this.name = name;
+		final var result = new WorkflowState();
+		result.name = name;
+		return result;
 	}
 
 	public String getName()
@@ -72,6 +69,24 @@ public class WorkflowState extends MongoDbObject
 	public void setJsondData(final JsonObject data)
 	{
 		this.jsondata = Optional.ofNullable(data);
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		if (obj instanceof WorkflowState)
+		{
+			final var other = (WorkflowState) obj;
+			return Objects.equal(this.name, other.name);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final var values = Arrays.asList(this.name);
+		return Objects.hashCode(values);
 	}
 
 	@Override

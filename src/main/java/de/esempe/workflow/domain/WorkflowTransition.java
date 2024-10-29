@@ -1,9 +1,12 @@
 package de.esempe.workflow.domain;
 
+import java.util.Arrays;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 @Document(collection = "transitions")
 public class WorkflowTransition extends MongoDbObject
@@ -78,6 +81,25 @@ public class WorkflowTransition extends MongoDbObject
 	public WorkflowState getToState()
 	{
 		return this.toState;
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		if (obj instanceof WorkflowTransition)
+		{
+			final var other = (WorkflowTransition) obj;
+			return Objects.equal(this.fromState, other.fromState) //
+					&& Objects.equal(this.toState, other.toState);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final var values = Arrays.asList(this.fromState, this.toState);
+		return Objects.hashCode(values);
 	}
 
 	@Override
