@@ -93,7 +93,7 @@ public class WorkflowState extends MongoDbObject
 	public String toString()
 	{
 		final var result = MoreObjects.toStringHelper(this) //
-				.add("id", this.getDbId().toString()) //
+				// .add("objid", this.getObjId().toString()) //
 				.add("name", this.name) //
 				.toString();
 		return result;

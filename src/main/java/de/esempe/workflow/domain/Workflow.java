@@ -1,7 +1,9 @@
 package de.esempe.workflow.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -62,7 +64,7 @@ public class Workflow extends MongoDbObject
 		}
 		else // toState muss in der Liste der fromStates sein!
 		{
-			Preconditions.checkState(this.fromStates.contains(transition.getFromState()), "Startzustand der Transition nicht im Workflow enthaltenS");
+			Preconditions.checkState(this.getStates().contains(transition.getFromState()), "Startzustand der Transition nicht im Workflow enthalten!");
 			this.transitions.add(transition);
 			this.fromStates.add(transition.getFromState());
 			this.toStates.add(transition.getToState());
@@ -79,13 +81,54 @@ public class Workflow extends MongoDbObject
 		return result;
 	}
 
+	public List<WorkflowState> getFinalStates()
+	{
+		final var copyToStates = new HashSet<>(this.toStates);
+		copyToStates.removeAll(this.fromStates);
+
+		final List<WorkflowState> result = copyToStates.stream().toList();
+		return result;
+	}
+
+	public boolean isFinalState(final WorkflowState fromState)
+	{
+		final var result = this.getFinalStates().contains(fromState);
+		return result;
+	}
+
+	public Set<WorkflowState> getStates()
+	{
+		final var result = new HashSet<WorkflowState>();
+		result.addAll(this.fromStates);
+		result.addAll(this.toStates);
+		return result;
+	}
+
+	public WorkflowState getStateByObjId(final UUID currentStateObjId)
+	{
+		final Set<WorkflowState> allStates = this.getStates();
+		final WorkflowState result = allStates.stream() //
+				.filter(s -> s.getObjId().equals(currentStateObjId)) //
+				.findFirst() //
+				.get();
+
+		return result;
+	}
+
+	public List<WorkflowTransition> getPossibleTransitions(final UUID objId)
+	{
+		final List<WorkflowTransition> result = this.transitions.stream().filter(t -> t.getFromState().getObjId().equals(objId)).toList();
+		return result;
+	}
+
 	@Override
 	public String toString()
 	{
 		final var result = MoreObjects.toStringHelper(this) //
-				.add("id", this.getDbId().toString())//
+				.add("objid", this.getObjId().toString())//
 				.add("name", this.name) //
 				.toString();
 		return result;
 	}
+
 }
