@@ -16,10 +16,6 @@ public class WorkflowStateRepositoryListener extends AbstractMongoEventListener<
 	{
 		final WorkflowState state = event.getSource();
 		System.out.println("onBeforeConvert");
-		if (state.getJsonData().isPresent())
-		{
-			state.setData(state.getJsonData().get().toString());
-		}
 	}
 
 	@Override

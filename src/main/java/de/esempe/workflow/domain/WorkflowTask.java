@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.bson.json.JsonObject;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.google.common.base.MoreObjects;
@@ -12,6 +13,7 @@ import com.google.common.base.MoreObjects;
 @Document(collection = "workflows")
 public class WorkflowTask extends MongoDbObject
 {
+	@Indexed(unique = true)
 	private String name;
 	private UUID workflowObjId;
 	private UUID currentStateObjId;

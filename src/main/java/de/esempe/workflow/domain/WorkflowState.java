@@ -1,11 +1,9 @@
 package de.esempe.workflow.domain;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.UUID;
 
-import org.bson.json.JsonObject;
-import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.google.common.base.MoreObjects;
@@ -14,24 +12,22 @@ import com.google.common.base.Objects;
 @Document(collection = "states")
 public class WorkflowState extends MongoDbObject
 {
+	@Indexed(unique = true)
 	private String name;
-	private String data;
-	@Transient
-	private Optional<JsonObject> jsondata;
+	private String scriptEnter;
+	private String scriptLeave;
 
 	private WorkflowState()
 	{
 		this.name = "";
-		this.data = "";
-		this.jsondata = Optional.empty();
+		this.scriptEnter = "";
+		this.scriptLeave = "";
 	}
 
 	private WorkflowState(final UUID objId, final String name)
 	{
 		super(objId);
 		this.name = name;
-		this.data = "";
-		this.jsondata = Optional.empty();
 	}
 
 	public static WorkflowState create(final String name)
@@ -51,24 +47,24 @@ public class WorkflowState extends MongoDbObject
 		this.name = name;
 	}
 
-	public String getData()
+	public String getScriptEnter()
 	{
-		return this.data;
+		return this.scriptEnter;
 	}
 
-	public void setData(final String data)
+	public void setScriptEnter(final String scriptEnter)
 	{
-		this.data = data;
+		this.scriptEnter = scriptEnter;
 	}
 
-	public Optional<JsonObject> getJsonData()
+	public String getScriptLeave()
 	{
-		return this.jsondata;
+		return this.scriptLeave;
 	}
 
-	public void setJsondData(final JsonObject data)
+	public void setScriptLeave(final String scriptLeave)
 	{
-		this.jsondata = Optional.ofNullable(data);
+		this.scriptLeave = scriptLeave;
 	}
 
 	@Override

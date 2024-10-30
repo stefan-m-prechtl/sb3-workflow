@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -39,6 +40,14 @@ public class WorkflowRepositoryTest
 	WorkflowStateRepository repositoryStates;
 	@Autowired
 	WorkflowTransitionRepository repositoryTransitions;
+
+	@BeforeAll
+	void setup()
+	{
+		// clean database
+		this.repositoryTransitions.deleteAll();
+		this.repositoryStates.deleteAll();
+	}
 
 	@Test
 	@Order(1)

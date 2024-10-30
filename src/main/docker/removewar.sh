@@ -3,8 +3,8 @@ docker stop tomcat
 if [ -e ./webapps/demo.war ]; then
     rm ./webapps/demo.war
 fi
-echo dsemrbw | sudo -S rm -Rf ./webapps/demo
+echo '<password>' | sudo -S rm -rf ./webapps/demo
 
-cp ../../../build/libs/demo.war ./webapps/
+cp ../../../build/libs/workflow.war ./webapps/
 
 docker start tomcat

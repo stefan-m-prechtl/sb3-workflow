@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -15,9 +16,11 @@ import com.google.common.base.Preconditions;
 @Document(collection = "workflows")
 public class Workflow extends MongoDbObject
 {
+	@Indexed(unique = true)
 	private String name;
 
 	@DocumentReference
+	@Transient
 	private Set<WorkflowTransition> transitions;
 
 	@Transient
@@ -75,7 +78,7 @@ public class Workflow extends MongoDbObject
 	{
 		final var copyFromStates = new HashSet<>(this.fromStates);
 		copyFromStates.removeAll(this.toStates);
-		Preconditions.checkState(copyFromStates.size() == 1, "Mehr als ein Startzustand");
+		// Preconditions.checkState(copyFromStates.size() == 1, "Mehr als ein Startzustand");
 
 		final WorkflowState result = copyFromStates.stream().findFirst().get();
 		return result;

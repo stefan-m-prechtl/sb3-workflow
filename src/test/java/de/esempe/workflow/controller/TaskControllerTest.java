@@ -54,6 +54,9 @@ class TaskControllerTest
 		automatischeGenehmigung.setType(TransistionType.SYSTEM);
 		automatischeGenehmigung.setRule(ruleMinDauer);
 
+		start.setScriptEnter("println 'Entered state START'");
+		start.setScriptLeave("println 'Left state START'");
+
 		this.workflow = Workflow.create("Demo");
 		this.workflow.addTransition(automatischeGenehmigung);
 		this.workflow.addTransition(manuellePruefung);

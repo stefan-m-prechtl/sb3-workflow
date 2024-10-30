@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -33,6 +34,16 @@ public class WorkflowTransitionRepositoryTest
 {
 	@Autowired
 	WorkflowTransitionRepository objUnderTest;
+
+	@Autowired
+	WorkflowStateRepository repositoryStates;
+
+	@BeforeAll
+	void setup()
+	{
+		// clean database
+		this.repositoryStates.deleteAll();
+	}
 
 	@Test
 	@Order(1)
@@ -65,6 +76,9 @@ public class WorkflowTransitionRepositoryTest
 		final WorkflowState stateStart = WorkflowState.create("Start");
 		final WorkflowState stateBearbeiten = WorkflowState.create("Bearbeiten");
 		final WorkflowRule rule = WorkflowRule.create("Empty Rule", "");
+
+		this.repositoryStates.save(stateStart);
+		this.repositoryStates.save(stateBearbeiten);
 
 		final WorkflowTransition transition = WorkflowTransition.create("bearbeiten", stateStart, stateBearbeiten);
 		transition.setType(TransistionType.USER);

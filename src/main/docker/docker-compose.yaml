@@ -29,9 +29,12 @@ services:
     image: esempe_tomcat:latest
     container_name: tomcat
     restart: always
+    environment:
+      - CATALINA_OPTS=-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n
     ports:
     # Local/Docker
       - "8080:8080"
+      - "5005:5005" 
     volumes:
       - ./webapps:/usr/local/tomcat/webapps/
 

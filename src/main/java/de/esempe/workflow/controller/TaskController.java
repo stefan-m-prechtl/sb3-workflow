@@ -48,8 +48,12 @@ public class TaskController
 
 	private void setState(final WorkflowState state)
 	{
+		// Statuswechsel: Leave-Skript vom Status der verlassen wird ausführen, Enter-Skript vom Status der gesetzt wird aufführen
+		this.executeScriptLeavePreviousState();
 		this.task.setCurrentStateObjId(state.getObjId());
+		this.executeScriptEnterCurrentState();
 
+		// Neu Status ist finaler Status? Workflow endet!
 		if (this.workflow.isFinalState(state))
 		{
 			this.task.setFinished(true);
@@ -57,10 +61,11 @@ public class TaskController
 			return;
 		}
 
+		// Durchlaufe alle möglichen Transitionen:
+		// die erste automatische Tranisition, deren Regel erfüllt wird, wird ausgelöst!
 		final List<WorkflowTransition> autotransitions = new ArrayList<>();
 		for (final WorkflowTransition possibleTransition : this.getPossibleTransitions())
 		{
-
 			if (possibleTransition.getType() == TransistionType.SYSTEM)
 			{
 				final WorkflowRule rule = possibleTransition.getRule();
@@ -90,6 +95,21 @@ public class TaskController
 
 	}
 
+	private void executeScriptEnterCurrentState()
+	{
+		final var currentState = this.getCurrentState().get();
+		this.executeScript(currentState.getScriptLeave());
+	}
+
+	private void executeScriptLeavePreviousState()
+	{
+		if (this.getCurrentState().isPresent())
+		{
+			final var previoiusState = this.getCurrentState().get();
+			this.executeScript(previoiusState.getScriptLeave());
+		}
+	}
+
 	public void fireTransition(final WorkflowTransition transition)
 	{
 		Preconditions.checkState(this.getPossibleTransitions().contains(transition), "Transition nicht im Workflow");
@@ -97,7 +117,6 @@ public class TaskController
 
 		// Aktuellen Zustand setzen
 		this.setState(transition.getToState());
-
 	}
 
 	public boolean executeRule(final WorkflowRule rule)
@@ -134,6 +153,24 @@ public class TaskController
 	public WorkflowTask getTask()
 	{
 		return this.task;
+	}
+
+	private void executeScript(final String groovyScript)
+	{
+		if (groovyScript.isEmpty())
+		{
+			return;
+		}
+
+		final CompiledScript compileScriptLeave = this.scriptBuilder.compileScript(groovyScript);
+		try
+		{
+			compileScriptLeave.eval();
+		}
+		catch (final ScriptException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 }
