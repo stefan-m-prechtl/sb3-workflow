@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+import de.esempe.workflow.boundary.json.UsedByJsonAdapter;
+import de.esempe.workflow.boundary.json.WorkflowStateJsonAdapter.WorkflowStateJsonSerializer.WorkflowStateJsonDeserializer;
+
 @Document(collection = "states")
 public class WorkflowState extends MongoDbObject
 {
@@ -24,10 +27,13 @@ public class WorkflowState extends MongoDbObject
 		this.scriptLeave = "";
 	}
 
-	private WorkflowState(final UUID objId, final String name)
+	@UsedByJsonAdapter(WorkflowStateJsonDeserializer.class)
+	public static WorkflowState create(final UUID objId, final String name)
 	{
-		super(objId);
-		this.name = name;
+		final var result = new WorkflowState();
+		result.objId = objId;
+		result.name = name;
+		return result;
 	}
 
 	public static WorkflowState create(final String name)

@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class MongoDbObject
 {
-	@Id // id set from monogdb
+	@Id // database-id: set from monogdb
 	private ObjectId dbId;
-	private UUID objId;
+	protected UUID objId;
 
 	MongoDbObject()
 	{

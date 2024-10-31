@@ -1,6 +1,7 @@
 package de.esempe.workflow.domain;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -36,18 +37,23 @@ public class WorkflowTransition extends MongoDbObject
 		this.type = TransistionType.USER;
 	}
 
-	private WorkflowTransition(final String name, final WorkflowState fromState, final WorkflowState toState)
+	public static WorkflowTransition create(final UUID objId, final String name, final WorkflowState fromState, final WorkflowState toState)
 	{
-		this();
-		this.name = name;
-		this.fromState = fromState;
-		this.toState = toState;
+		final var result = new WorkflowTransition();
+		result.objId = objId;
+		result.name = name;
+		result.fromState = fromState;
+		result.toState = toState;
+		return result;
 	}
 
 	public static WorkflowTransition create(final String name, final WorkflowState fromState, final WorkflowState toState)
 	{
-		final var transition = new WorkflowTransition(name, fromState, toState);
-		return transition;
+		final var result = new WorkflowTransition();
+		result.name = name;
+		result.fromState = fromState;
+		result.toState = toState;
+		return result;
 	}
 
 	public String getName()

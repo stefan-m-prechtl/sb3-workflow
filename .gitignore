@@ -23,4 +23,4 @@ bin/
 
 ## War-file in deploy folder for tomcat ##
 **/*.war
-src/main/docker/removewar.sh
+

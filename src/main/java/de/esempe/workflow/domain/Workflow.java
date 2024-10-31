@@ -13,7 +13,11 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
+import de.esempe.workflow.boundary.json.UsedByJsonAdapter;
+import de.esempe.workflow.boundary.json.WorkflowJsonAdapter.WorkflowJsonDeserializer;
+
 @Document(collection = "workflows")
+//@JsonSerialize(using = WorkflowJsonAdapter.WorkflowJsonSerializer.class)
 public class Workflow extends MongoDbObject
 {
 	@Indexed(unique = true)
@@ -37,6 +41,15 @@ public class Workflow extends MongoDbObject
 		this.toStates = new HashSet<>();
 	}
 
+	@UsedByJsonAdapter(WorkflowJsonDeserializer.class)
+	public static Workflow create(final UUID objId, final String name)
+	{
+		final var result = new Workflow();
+		result.objId = objId;
+		result.name = name;
+		return result;
+	}
+
 	public static Workflow create(final String name)
 	{
 		final var result = new Workflow();
@@ -56,6 +69,11 @@ public class Workflow extends MongoDbObject
 
 	public void addTransition(final WorkflowTransition transition)
 	{
+		if (this.transitions.contains(transition))
+		{
+			return;
+		}
+
 		final var fromState = transition.getFromState();
 		final var toState = transition.getToState();
 
@@ -118,9 +136,26 @@ public class Workflow extends MongoDbObject
 		return result;
 	}
 
+	public WorkflowState getStateByName(final String name)
+	{
+		final Set<WorkflowState> allStates = this.getStates();
+		final WorkflowState result = allStates.stream() //
+				.filter(s -> s.getName().equals(name)) //
+				.findFirst() //
+				.get();
+
+		return result;
+	}
+
 	public List<WorkflowTransition> getPossibleTransitions(final UUID objId)
 	{
 		final List<WorkflowTransition> result = this.transitions.stream().filter(t -> t.getFromState().getObjId().equals(objId)).toList();
+		return result;
+	}
+
+	public List<WorkflowTransition> getPossibleTransitions(final String name)
+	{
+		final List<WorkflowTransition> result = this.transitions.stream().filter(t -> t.getFromState().getName().equals(name)).toList();
 		return result;
 	}
 
