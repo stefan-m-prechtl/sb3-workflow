@@ -28,7 +28,7 @@ public class UserResource
 	private UserRepository repository;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<User>> getUsers()
+	public ResponseEntity<List<User>> getAll()
 	{
 		final List<User> all = this.repository.findAll();
 		final var result = ResponseEntity.status(HttpStatus.OK).body(all);

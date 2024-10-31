@@ -26,8 +26,7 @@ public class PingResourceTest
 				.andExpectAll( //
 						status().isOk(), //
 						content().contentType(MediaType.APPLICATION_JSON), //
-						jsonPath("msg").value("Ping vom Server")//
+						jsonPath("$.msg").value("Ping vom Server")//
 				);
-
 	}
 }

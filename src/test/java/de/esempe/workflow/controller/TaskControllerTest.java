@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.context.annotation.Import;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import de.esempe.workflow.boundary.json.ConfigJsonSerialization;
 import de.esempe.workflow.domain.Workflow;
 import de.esempe.workflow.domain.WorkflowRule;
 import de.esempe.workflow.domain.WorkflowState;
@@ -22,6 +24,7 @@ import de.esempe.workflow.domain.WorkflowTransition;
 import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
 
 @JsonTest
+@Import(ConfigJsonSerialization.class)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Tag("unit-test")

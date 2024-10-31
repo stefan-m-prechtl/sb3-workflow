@@ -76,7 +76,7 @@ public class WorkflowStateRepositoryTest
 
 	@Test
 	@Order(4)
-	@DisplayName("Load data from not empty table")
+	@DisplayName("Load all data from not empty table")
 	void findAllNotEmptyDbTest()
 	{
 		final List<WorkflowState> allStates = this.objUnderTest.findAll();
@@ -85,7 +85,17 @@ public class WorkflowStateRepositoryTest
 	}
 
 	@Test
-	@Order(5)
+	@Order(4)
+	@DisplayName("Load one by name from not empty table")
+	void findByNameDbTest()
+	{
+		final WorkflowState state = this.objUnderTest.findByName("Start");
+		assertThat(state).isNotNull();
+		assertThat(state.getName()).isEqualTo("Start");
+	}
+
+	@Test
+	@Order(10)
 	@Rollback(false)
 	@DisplayName("Insert same data into table")
 	void saveAgainInsertTest()
