@@ -29,7 +29,7 @@ public class TokenHandler
 	public static String createTokenFor(final String userid, final String username, final String userrole)
 	{
 		final Algorithm algorithm = Algorithm.HMAC256(SECRET);
-		final Map<String, String> payloadClaims = new HashMap();
+		final Map<String, String> payloadClaims = new HashMap<>();
 		payloadClaims.put(KEY_USERID, userid);
 		payloadClaims.put(KEY_USERNAME, username);
 		payloadClaims.put(KEY_USERROLE, userrole);

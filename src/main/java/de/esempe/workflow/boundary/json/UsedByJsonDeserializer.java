@@ -11,5 +11,5 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 @Target(ElementType.METHOD)
 public @interface UsedByJsonDeserializer
 {
-	Class<? extends JsonDeserializer> value();
+	Class<? extends JsonDeserializer<?>> value();
 }

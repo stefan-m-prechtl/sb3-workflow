@@ -78,15 +78,15 @@ public class Workflow extends MongoDbObject
 		if (this.transitions.isEmpty())
 		{
 			this.transitions.add(transition);
-			this.fromStates.add(transition.getFromState());
-			this.toStates.add(transition.getToState());
+			this.fromStates.add(fromState);
+			this.toStates.add(toState);
 		}
 		else // toState muss in der Liste der fromStates sein!
 		{
 			Preconditions.checkState(this.getStates().contains(transition.getFromState()), "Startzustand der Transition nicht im Workflow enthalten!");
 			this.transitions.add(transition);
-			this.fromStates.add(transition.getFromState());
-			this.toStates.add(transition.getToState());
+			this.fromStates.add(fromState);
+			this.toStates.add(toState);
 		}
 	}
 

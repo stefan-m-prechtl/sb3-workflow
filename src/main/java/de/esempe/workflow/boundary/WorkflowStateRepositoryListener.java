@@ -15,20 +15,20 @@ public class WorkflowStateRepositoryListener extends AbstractMongoEventListener<
 	public void onBeforeConvert(final BeforeConvertEvent<WorkflowState> event)
 	{
 		final WorkflowState state = event.getSource();
-		System.out.println("onBeforeConvert");
+		System.out.println("onBeforeConvert:" + state.getName());
 	}
 
 	@Override
 	public void onBeforeSave(final BeforeSaveEvent<WorkflowState> event)
 	{
 		final WorkflowState state = event.getSource();
-		System.out.println("onBeforeSave");
+		System.out.println("onBeforeSave: " + state.getName());
 	}
 
 	@Override
 	public void onAfterSave(final AfterSaveEvent<WorkflowState> event)
 	{
 		final WorkflowState state = event.getSource();
-		System.out.println("onAfterSave");
+		System.out.println("onAfterSave: " + state.getName());
 	}
 }
