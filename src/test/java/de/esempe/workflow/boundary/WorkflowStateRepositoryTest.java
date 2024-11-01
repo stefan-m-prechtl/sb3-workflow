@@ -20,6 +20,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.boundary.db.WorkflowStateRepository;
+import de.esempe.workflow.boundary.db.WorkflowStateRepositoryListener;
 import de.esempe.workflow.domain.WorkflowState;
 
 @DataMongoTest

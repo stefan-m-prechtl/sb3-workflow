@@ -10,8 +10,8 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-import de.esempe.workflow.boundary.json.UsedByJsonDeserializer;
-import de.esempe.workflow.boundary.json.WorkflowTransitionJsonDeserializer;
+import de.esempe.workflow.boundary.rest.json.UsedByJsonDeserializer;
+import de.esempe.workflow.boundary.rest.json.WorkflowTransitionJsonDeserializer;
 
 @Document(collection = "transitions")
 public class WorkflowTransition extends MongoDbObject

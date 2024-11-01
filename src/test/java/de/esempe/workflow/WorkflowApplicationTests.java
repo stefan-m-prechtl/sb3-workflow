@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import de.esempe.workflow.boundary.PingResource;
-import de.esempe.workflow.boundary.PingResultRecord;
+import de.esempe.workflow.boundary.rest.PingResource;
+import de.esempe.workflow.boundary.rest.PingResultRecord;
 
 @SpringBootTest
 class WorkflowApplicationTests

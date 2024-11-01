@@ -20,6 +20,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.boundary.db.WorkflowTaskRepository;
+import de.esempe.workflow.boundary.db.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.controller.BsonJsonBuilder;
 import de.esempe.workflow.domain.WorkflowTask;
 

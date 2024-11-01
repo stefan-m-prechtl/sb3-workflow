@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import de.esempe.workflow.boundary.json.ConfigJsonSerialization;
+import de.esempe.workflow.boundary.rest.json.ConfigJsonSerialization;
 import de.esempe.workflow.domain.Workflow;
 import de.esempe.workflow.domain.WorkflowRule;
 import de.esempe.workflow.domain.WorkflowState;

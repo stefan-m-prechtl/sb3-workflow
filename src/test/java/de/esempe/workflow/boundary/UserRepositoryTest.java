@@ -20,6 +20,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.boundary.db.UserRepository;
 import de.esempe.workflow.domain.User;
 
 @DataJpaTest
