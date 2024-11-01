@@ -16,6 +16,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -23,6 +24,7 @@ import de.esempe.workflow.controller.BsonJsonBuilder;
 import de.esempe.workflow.domain.WorkflowTask;
 
 @DataMongoTest
+@Import(WorkflowTaskRepositoryListener.class)
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
@@ -78,14 +80,14 @@ public class WorkflowTaskRepositoryTest
 		assertThat(savedEntity.getDbId()).isNotNull();
 	}
 
-//	@Test
-//	@Order(4)
-//	@DisplayName("Load all data from not empty table")
-//	void findAllNotEmptyDbTest()
-//	{
-//		final List<WorkflowTask> allTasks = this.objUnderTest.findAll();
-//		assertThat(allTasks).isNotEmpty();
-//		assertThat(allTasks).hasSize(1);
-//	}
+	@Test
+	@Order(4)
+	@DisplayName("Load all data from not empty table")
+	void findAllNotEmptyDbTest()
+	{
+		final List<WorkflowTask> allTasks = this.objUnderTest.findAll();
+		assertThat(allTasks).isNotEmpty();
+		assertThat(allTasks).hasSize(1);
+	}
 
 }

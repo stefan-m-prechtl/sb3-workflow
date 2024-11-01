@@ -57,7 +57,7 @@ dependencies {
 	// JSON: http://localhost:8080/workflow/v3/api-docs
 	// YAML: http://localhost:8080/workflow/api-docs.yaml
 	// Swagger UI
-	//http://localhost:8080/demo/swagger-ui/index.html
+	//http://localhost:8080/workflow/swagger-ui/index.html
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 	
 	
@@ -78,10 +78,6 @@ dependencies {
 
 	
 	// implementation 'org.springframework.session:spring-session-core'
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << '-parameters'
 }
 
 test {

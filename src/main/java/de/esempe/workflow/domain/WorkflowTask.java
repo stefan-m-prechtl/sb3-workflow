@@ -6,12 +6,15 @@ import java.util.UUID;
 import org.bson.json.JsonObject;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.google.common.base.MoreObjects;
 
 @Document(collection = "tasks")
 public class WorkflowTask extends MongoDbObject
 {
+	public final static String FIELD_NAME_JSONDATA = "jsondata";
+
 	@Indexed(unique = true)
 	private String name;
 	private UUID workflowObjId;
@@ -20,13 +23,12 @@ public class WorkflowTask extends MongoDbObject
 	private boolean running;
 	private boolean finished;
 
+	@Field(name = FIELD_NAME_JSONDATA)
 	private JsonObject jsondata;
-	private String data;
 
 	private WorkflowTask()
 	{
 		this.name = "";
-		this.data = "";
 		this.jsondata = null;
 		this.running = false;
 		this.finished = false;
@@ -39,6 +41,11 @@ public class WorkflowTask extends MongoDbObject
 		result.name = name;
 
 		return result;
+	}
+
+	public String getName()
+	{
+		return this.name;
 	}
 
 	public void setData(final JsonObject data)
