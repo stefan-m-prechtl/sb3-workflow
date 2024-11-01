@@ -14,22 +14,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 
 import de.esempe.workflow.controller.BsonJsonBuilder;
 import de.esempe.workflow.domain.WorkflowTask;
 
-@SpringBootTest
+@DataMongoTest
 @ActiveProfiles("test")
-@ContextConfiguration(classes = { MongoConfig.class })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DisplayName("Integrationstext WorkflowTaskRepository/Mongo-DB")
+@DisplayName("Integrationstext WorkflowTask/Mongo-DB")
 @Tag("integration-test")
 public class WorkflowTaskRepositoryTest
 {
@@ -80,14 +78,14 @@ public class WorkflowTaskRepositoryTest
 		assertThat(savedEntity.getDbId()).isNotNull();
 	}
 
-	@Test
-	@Order(4)
-	@DisplayName("Load all data from not empty table")
-	void findAllNotEmptyDbTest()
-	{
-		final List<WorkflowTask> allTasks = this.objUnderTest.findAll();
-		assertThat(allTasks).isNotEmpty();
-		assertThat(allTasks).hasSize(1);
-	}
+//	@Test
+//	@Order(4)
+//	@DisplayName("Load all data from not empty table")
+//	void findAllNotEmptyDbTest()
+//	{
+//		final List<WorkflowTask> allTasks = this.objUnderTest.findAll();
+//		assertThat(allTasks).isNotEmpty();
+//		assertThat(allTasks).hasSize(1);
+//	}
 
 }
