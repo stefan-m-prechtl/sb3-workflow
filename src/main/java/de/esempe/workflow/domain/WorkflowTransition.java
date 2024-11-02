@@ -3,7 +3,6 @@ package de.esempe.workflow.domain;
 import java.util.Arrays;
 import java.util.UUID;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -21,8 +20,6 @@ public class WorkflowTransition extends MongoDbObject
 		USER, SYSTEM;
 	}
 
-	@Indexed(unique = true)
-	private String name;
 	@DocumentReference
 	private WorkflowState fromState;
 	@DocumentReference
@@ -58,11 +55,6 @@ public class WorkflowTransition extends MongoDbObject
 		result.fromState = fromState;
 		result.toState = toState;
 		return result;
-	}
-
-	public String getName()
-	{
-		return this.name;
 	}
 
 	public void setType(final TransistionType type)

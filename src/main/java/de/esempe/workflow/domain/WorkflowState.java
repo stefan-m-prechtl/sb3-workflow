@@ -3,7 +3,6 @@ package de.esempe.workflow.domain;
 import java.util.Arrays;
 import java.util.UUID;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.google.common.base.MoreObjects;
@@ -15,8 +14,6 @@ import de.esempe.workflow.boundary.rest.json.WorkflowStateJsonDeserializer;
 @Document(collection = "states")
 public class WorkflowState extends MongoDbObject
 {
-	@Indexed(unique = true)
-	private String name;
 	private String scriptEnter;
 	private String scriptLeave;
 
@@ -41,16 +38,6 @@ public class WorkflowState extends MongoDbObject
 		final var result = new WorkflowState();
 		result.name = name;
 		return result;
-	}
-
-	public String getName()
-	{
-		return this.name;
-	}
-
-	public void setName(final String name)
-	{
-		this.name = name;
 	}
 
 	public String getScriptEnter()

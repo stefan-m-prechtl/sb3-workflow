@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary;
+package de.esempe.workflow.boundary.db;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +21,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import de.esempe.workflow.boundary.db.WorkflowTaskRepository;
-import de.esempe.workflow.boundary.db.WorkflowTaskRepositoryListener;
+import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.controller.BsonJsonBuilder;
 import de.esempe.workflow.domain.WorkflowTask;
 

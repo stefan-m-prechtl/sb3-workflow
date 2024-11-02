@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -19,9 +18,6 @@ import de.esempe.workflow.boundary.rest.json.WorkflowJsonDeserializer;
 @Document(collection = "workflows")
 public class Workflow extends MongoDbObject
 {
-	@Indexed(unique = true)
-	private String name;
-
 	@DocumentReference
 	private Set<WorkflowTransition> transitions;
 
@@ -53,11 +49,6 @@ public class Workflow extends MongoDbObject
 		final var result = new Workflow();
 		result.name = name;
 		return result;
-	}
-
-	public String getName()
-	{
-		return this.name;
 	}
 
 	public Set<WorkflowTransition> getTransitions()

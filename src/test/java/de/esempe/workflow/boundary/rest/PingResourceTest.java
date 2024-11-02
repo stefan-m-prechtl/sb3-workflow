@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary;
+package de.esempe.workflow.boundary.rest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

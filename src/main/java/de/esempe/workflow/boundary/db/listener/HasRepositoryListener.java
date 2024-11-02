@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.db;
+package de.esempe.workflow.boundary.db.listener;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

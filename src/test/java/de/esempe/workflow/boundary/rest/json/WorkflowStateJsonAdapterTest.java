@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.json;
+package de.esempe.workflow.boundary.rest.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

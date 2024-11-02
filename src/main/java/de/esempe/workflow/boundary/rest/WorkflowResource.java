@@ -23,6 +23,19 @@ public class WorkflowResource
 	@Autowired
 	private WorkflowRepository repository;
 
+// Demo: hier soll später per plugin ein Exporter nachgeladen werden
+//	@Autowired(required = false)
+//	private Exporter exporter;
+//
+//	@PostConstruct
+//	public void init()
+//	{
+//		if (null == this.exporter)
+//		{
+//			System.out.println("Exporter nicht geladen");
+//		}
+//	}
+
 	@Autowired
 	ConfigJsonSerialization serializationConfig;
 

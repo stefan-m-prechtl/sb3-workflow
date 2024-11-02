@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.db;
+package de.esempe.workflow.boundary.db.listener;
 
 import org.bson.Document;
 import org.bson.json.JsonObject;

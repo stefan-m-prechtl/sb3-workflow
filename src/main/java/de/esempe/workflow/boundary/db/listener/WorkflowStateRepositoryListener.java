@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.db;
+package de.esempe.workflow.boundary.db.listener;
 
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent;

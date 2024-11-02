@@ -7,7 +7,6 @@ import com.google.common.base.MoreObjects;
 @Document(collection = "rules")
 public class WorkflowRule extends MongoDbObject
 {
-	private String name;
 	private String script;
 
 	private WorkflowRule()
@@ -25,11 +24,6 @@ public class WorkflowRule extends MongoDbObject
 	public String getScript()
 	{
 		return this.script;
-	}
-
-	public String getName()
-	{
-		return this.name;
 	}
 
 	@Override

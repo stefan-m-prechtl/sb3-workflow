@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.bson.json.JsonObject;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,8 +14,6 @@ public class WorkflowTask extends MongoDbObject
 {
 	public final static String FIELD_NAME_JSONDATA = "jsondata";
 
-	@Indexed(unique = true)
-	private String name;
 	private UUID workflowObjId;
 	private UUID currentStateObjId;
 
@@ -41,11 +38,6 @@ public class WorkflowTask extends MongoDbObject
 		result.name = name;
 
 		return result;
-	}
-
-	public String getName()
-	{
-		return this.name;
 	}
 
 	public void setData(final JsonObject data)

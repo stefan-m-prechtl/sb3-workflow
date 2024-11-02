@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary;
+package de.esempe.workflow.boundary.db;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,10 +18,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.boundary.db.WorkflowRepository;
 import de.esempe.workflow.boundary.db.WorkflowStateRepository;
 import de.esempe.workflow.boundary.db.WorkflowTransitionRepository;
-import de.esempe.workflow.domain.Workflow;
 import de.esempe.workflow.domain.WorkflowRule;
 import de.esempe.workflow.domain.WorkflowState;
 import de.esempe.workflow.domain.WorkflowTransition;
@@ -32,23 +30,20 @@ import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DisplayName("Integrationstext WorkflowRepository/Mongo-DB")
+@DisplayName("Integrationstext WorkflowTransitionRepository/Mongo-DB")
 @Tag("integration-test")
-public class WorkflowRepositoryTest
+public class WorkflowTransitionRepositoryTest
 {
 	@Autowired
-	WorkflowRepository objUnderTest;
+	WorkflowTransitionRepository objUnderTest;
 
 	@Autowired
 	WorkflowStateRepository repositoryStates;
-	@Autowired
-	WorkflowTransitionRepository repositoryTransitions;
 
 	@BeforeAll
 	void setup()
 	{
 		// clean database
-		this.repositoryTransitions.deleteAll();
 		this.repositoryStates.deleteAll();
 	}
 
@@ -60,8 +55,8 @@ public class WorkflowRepositoryTest
 	{
 		this.objUnderTest.deleteAll();
 
-		final List<Workflow> allWorfkflows = this.objUnderTest.findAll();
-		assertThat(allWorfkflows).isEmpty();
+		final List<WorkflowTransition> allTransitions = this.objUnderTest.findAll();
+		assertThat(allTransitions).isEmpty();
 	}
 
 	@Test
@@ -69,8 +64,8 @@ public class WorkflowRepositoryTest
 	@DisplayName("Load data from empty table")
 	void findAllEmptyDbTest()
 	{
-		final List<Workflow> allWorfkflows = this.objUnderTest.findAll();
-		assertThat(allWorfkflows).isEmpty();
+		final List<WorkflowTransition> allTransitions = this.objUnderTest.findAll();
+		assertThat(allTransitions).isEmpty();
 	}
 
 	@Test
@@ -82,31 +77,19 @@ public class WorkflowRepositoryTest
 		// prepare
 		final WorkflowState stateStart = WorkflowState.create("Start");
 		final WorkflowState stateBearbeiten = WorkflowState.create("Bearbeiten");
-		final WorkflowState stateAblehnen = WorkflowState.create("Ablehnen");
 		final WorkflowRule rule = WorkflowRule.create("Empty Rule", "");
-
-		final WorkflowTransition transitionBearbeiten = WorkflowTransition.create("bearbeiten", stateStart, stateBearbeiten);
-		transitionBearbeiten.setType(TransistionType.USER);
-		transitionBearbeiten.setRule(rule);
-
-		final WorkflowTransition transitionAblehnen = WorkflowTransition.create("ablehnen", stateStart, stateAblehnen);
-		transitionAblehnen.setType(TransistionType.USER);
-		transitionAblehnen.setRule(rule);
 
 		this.repositoryStates.save(stateStart);
 		this.repositoryStates.save(stateBearbeiten);
-		this.repositoryStates.save(stateAblehnen);
-		this.repositoryTransitions.save(transitionBearbeiten);
-		this.repositoryTransitions.save(transitionAblehnen);
 
-		final Workflow workflow = Workflow.create("demo");
-		workflow.addTransition(transitionBearbeiten);
-		workflow.addTransition(transitionAblehnen);
+		final WorkflowTransition transition = WorkflowTransition.create("bearbeiten", stateStart, stateBearbeiten);
+		transition.setType(TransistionType.USER);
+		transition.setRule(rule);
 
 		// act
-		final Workflow savedWorkflow = this.objUnderTest.save(workflow);
+		final WorkflowTransition savedTransition = this.objUnderTest.save(transition);
 		// verify
-		assertThat(savedWorkflow).isNotNull();
+		assertThat(savedTransition).isNotNull();
 
 	}
 

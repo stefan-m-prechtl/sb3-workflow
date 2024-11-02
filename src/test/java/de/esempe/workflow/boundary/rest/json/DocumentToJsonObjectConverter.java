@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.json;
+package de.esempe.workflow.boundary.rest.json;
 
 import org.bson.Document;
 import org.bson.json.JsonObject;

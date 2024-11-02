@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary.json;
+package de.esempe.workflow.boundary.rest.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,17 +17,17 @@ import org.springframework.boot.test.json.JsonContent;
 import org.springframework.context.annotation.Import;
 
 import de.esempe.workflow.boundary.rest.json.ConfigJsonSerialization;
-import de.esempe.workflow.domain.User;
+import de.esempe.workflow.domain.Workflow;
 
 @JsonTest
 @Import(ConfigJsonSerialization.class)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Tag("unit-test")
-public class UserJsonAdapterTest
+public class WorkflowJsonAdapterTest
 {
 	@Autowired
-	private JacksonTester<User> jacksonTester;
+	private JacksonTester<Workflow> jacksonTester;
 
 	private String json = "";
 
@@ -35,14 +35,12 @@ public class UserJsonAdapterTest
 	@Order(1)
 	void convertToJson() throws IOException
 	{
-		final User user = new User();
-		user.setFirstname("Stefan");
-		user.setLastname("Precthl");
+		final Workflow workflow = Workflow.create("testworkflow");
 
-		final JsonContent<User> resultWrite = this.jacksonTester.write(user);
+		final JsonContent<Workflow> resultWrite = this.jacksonTester.write(workflow);
 		final String jsonUser = resultWrite.getJson();
 
-		assertThat(jsonUser).contains("first");
+		assertThat(jsonUser).contains("name");
 
 		this.json = jsonUser;
 
@@ -52,7 +50,8 @@ public class UserJsonAdapterTest
 	@Order(2)
 	void convertFromJson() throws IOException
 	{
-		final User user = this.jacksonTester.parseObject(this.json);
-		assertThat(user.getFirstname()).isEqualTo("Stefan");
+		final Workflow workflow = this.jacksonTester.parseObject(this.json);
+		assertThat(workflow.getName()).isEqualTo("testworkflow");
 	}
+
 }

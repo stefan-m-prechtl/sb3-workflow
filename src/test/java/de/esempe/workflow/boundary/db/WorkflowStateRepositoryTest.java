@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary;
+package de.esempe.workflow.boundary.db;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +21,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import de.esempe.workflow.boundary.db.WorkflowStateRepository;
-import de.esempe.workflow.boundary.db.WorkflowStateRepositoryListener;
+import de.esempe.workflow.boundary.db.listener.WorkflowStateRepositoryListener;
 import de.esempe.workflow.domain.WorkflowState;
 
 @DataMongoTest
