@@ -18,11 +18,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.boundary.db.WorkflowRepository;
-import de.esempe.workflow.boundary.db.WorkflowStateRepository;
-import de.esempe.workflow.boundary.db.WorkflowTransitionRepository;
 import de.esempe.workflow.domain.Workflow;
-import de.esempe.workflow.domain.WorkflowRule;
 import de.esempe.workflow.domain.WorkflowState;
 import de.esempe.workflow.domain.WorkflowTransition;
 import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
@@ -83,15 +79,15 @@ public class WorkflowRepositoryTest
 		final WorkflowState stateStart = WorkflowState.create("Start");
 		final WorkflowState stateBearbeiten = WorkflowState.create("Bearbeiten");
 		final WorkflowState stateAblehnen = WorkflowState.create("Ablehnen");
-		final WorkflowRule rule = WorkflowRule.create("Empty Rule", "");
+		// final WorkflowRule rule = WorkflowRule.create("Empty Rule", "");
 
 		final WorkflowTransition transitionBearbeiten = WorkflowTransition.create("bearbeiten", stateStart, stateBearbeiten);
 		transitionBearbeiten.setType(TransistionType.USER);
-		transitionBearbeiten.setRule(rule);
+		// transitionBearbeiten.setRule(rule);
 
 		final WorkflowTransition transitionAblehnen = WorkflowTransition.create("ablehnen", stateStart, stateAblehnen);
 		transitionAblehnen.setType(TransistionType.USER);
-		transitionAblehnen.setRule(rule);
+		// transitionAblehnen.setRule(rule);
 
 		this.repositoryStates.save(stateStart);
 		this.repositoryStates.save(stateBearbeiten);

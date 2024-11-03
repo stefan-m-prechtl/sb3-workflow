@@ -5,25 +5,23 @@ import java.util.UUID;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class MongoDbObject
+public abstract class MongoDbObject
 {
 	@Id // database-id: set from monogdb
 	private ObjectId dbId;
 	protected UUID objId;
 
-	@Indexed(unique = true)
+	@Indexed(unique = true, sparse = true)
 	protected String name;
 
-	MongoDbObject()
+	protected MongoDbObject()
 	{
 		this.objId = UUID.randomUUID();
 		this.name = "";
 	}
 
-	MongoDbObject(final UUID objId)
+	protected MongoDbObject(final UUID objId)
 	{
 		this.objId = objId;
 		this.name = "";
