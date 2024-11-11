@@ -31,10 +31,24 @@ class BaseResource<T extends MongoDbObject>
 		return result;
 	}
 
-	public ResponseEntity<T> getOneByObjId(@PathVariable final UUID objId)
+	public ResponseEntity<T> getOneByObjId(final UUID objId)
 	{
 
 		final T dbResult = this.repository.findByObjId(objId);
+		if (null == dbResult)
+		{
+			final ResponseEntity<T> result = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return result;
+		}
+
+		final var result = ResponseEntity.status(HttpStatus.OK).body(dbResult);
+		return result;
+	}
+
+	public ResponseEntity<T> getOneByNameId(final String name)
+	{
+
+		final T dbResult = this.repository.findByName(name);
 		if (null == dbResult)
 		{
 			final ResponseEntity<T> result = ResponseEntity.status(HttpStatus.NOT_FOUND).build();

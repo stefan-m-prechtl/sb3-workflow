@@ -5,12 +5,15 @@ import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowState.FIEL
 
 import java.io.IOException;
 
+import org.springframework.boot.jackson.JsonComponent;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import de.esempe.workflow.domain.WorkflowState;
 
+@JsonComponent
 public class WorkflowStateJsonSerializer extends JsonSerializer<WorkflowState>
 {
 	@Override

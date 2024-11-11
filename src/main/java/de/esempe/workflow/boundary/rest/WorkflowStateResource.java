@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.esempe.workflow.boundary.db.WorkflowStateRepository;
@@ -46,6 +47,13 @@ public class WorkflowStateResource
 	public ResponseEntity<WorkflowState> getOneByObjId(@PathVariable final UUID objId)
 	{
 		final var result = this.resource.getOneByObjId(objId);
+		return result;
+	}
+
+	@GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<WorkflowState> getStateByName(@RequestParam(required = true) final String name)
+	{
+		final var result = this.resource.getOneByNameId(name);
 		return result;
 	}
 
