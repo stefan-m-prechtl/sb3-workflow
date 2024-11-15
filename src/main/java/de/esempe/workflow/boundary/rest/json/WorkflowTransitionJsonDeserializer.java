@@ -8,6 +8,8 @@ import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.boot.jackson.JsonComponent;
+
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.esempe.workflow.domain.WorkflowState;
 import de.esempe.workflow.domain.WorkflowTransition;
 
+@JsonComponent
 public class WorkflowTransitionJsonDeserializer extends JsonDeserializer<WorkflowTransition>
 {
 	private WorkflowStateJsonDeserializer stateDeserializer;

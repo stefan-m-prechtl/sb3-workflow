@@ -77,9 +77,19 @@ public class WorkflowTransition extends MongoDbObject
 		return this.rule;
 	}
 
+	public void setFromState(final WorkflowState state)
+	{
+		this.fromState = state;
+	}
+
 	public WorkflowState getFromState()
 	{
 		return this.fromState;
+	}
+
+	public void setToState(final WorkflowState state)
+	{
+		this.toState = state;
 	}
 
 	public WorkflowState getToState()
