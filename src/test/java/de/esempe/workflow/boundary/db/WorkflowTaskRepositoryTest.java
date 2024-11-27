@@ -5,7 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.UUID;
 
-import org.bson.json.JsonObject;
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -20,9 +22,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.boundary.db.WorkflowTaskRepository;
 import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
-import de.esempe.workflow.controller.BsonJsonBuilder;
 import de.esempe.workflow.domain.WorkflowTask;
 
 @DataMongoTest
@@ -67,7 +67,7 @@ public class WorkflowTaskRepositoryTest
 	{
 		final UUID wfObjId = UUID.randomUUID();
 		final UUID stateObjId = UUID.randomUUID();
-		final JsonObject data = BsonJsonBuilder.create() //
+		final JsonObject data = Json.createObjectBuilder() //
 				.add("pc", "R9575") //
 				.add("dauer", 4) //
 				.add("begründung", "SW-Installation")//
@@ -75,7 +75,7 @@ public class WorkflowTaskRepositoryTest
 
 		final WorkflowTask entity = WorkflowTask.create(wfObjId, "Admin-Rechte");
 		entity.setCurrentStateObjId(stateObjId);
-		entity.setData(data);
+		entity.setData(data.toString());
 
 		final WorkflowTask savedEntity = this.objUnderTest.save(entity);
 		assertThat(savedEntity).isNotNull();

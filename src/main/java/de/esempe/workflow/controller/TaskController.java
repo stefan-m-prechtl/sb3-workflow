@@ -123,7 +123,7 @@ public class TaskController
 	{
 		final CompiledScript compiledScript = this.scriptBuilder.compileScript(rule.getScript());
 		final Bindings b = new SimpleBindings();
-		final String dataString = this.task.getData().getJson();
+		final String dataString = this.task.getData();
 		b.put("data", dataString);
 		try
 		{
@@ -172,5 +172,4 @@ public class TaskController
 			throw new RuntimeException(e);
 		}
 	}
-
 }

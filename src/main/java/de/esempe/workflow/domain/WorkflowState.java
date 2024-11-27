@@ -87,5 +87,4 @@ public class WorkflowState extends MongoDbObject
 				.toString();
 		return result;
 	}
-
 }

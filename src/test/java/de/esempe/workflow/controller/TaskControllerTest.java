@@ -2,7 +2,9 @@ package de.esempe.workflow.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.bson.json.JsonObject;
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -74,12 +76,12 @@ class TaskControllerTest
 	{
 		final WorkflowTask task = WorkflowTask.create(this.workflow.getObjId(), "SW-Genehmigung");
 		// Daten als JSON erzeugen
-		final JsonObject data = BsonJsonBuilder.create() //
+		final JsonObject data = Json.createObjectBuilder()//
 				.add("pc", "R9575") //
 				.add("dauer", 4) //
 				.add("begründung", "SW-Installation")//
 				.build();
-		task.setData(data);
+		task.setData(data.toString());
 
 		this.objUnderTest = TaskController.create(this.workflow, task);
 		assertThat(this.objUnderTest).isNotNull();
@@ -108,12 +110,12 @@ class TaskControllerTest
 	{
 		final WorkflowTask task = WorkflowTask.create(this.workflow.getObjId(), "SW-Genehmigung");
 		// Daten als JSON erzeugen
-		final JsonObject data = BsonJsonBuilder.create() //
+		final JsonObject data = Json.createObjectBuilder() //
 				.add("pc", "R9575") //
 				.add("dauer", 60) //
 				.add("begründung", "SW-Installation")//
 				.build();
-		task.setData(data);
+		task.setData(data.toString());
 
 		this.objUnderTest = TaskController.create(this.workflow, task);
 		assertThat(this.objUnderTest).isNotNull();

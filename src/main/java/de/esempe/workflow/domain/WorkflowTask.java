@@ -3,7 +3,6 @@ package de.esempe.workflow.domain;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.bson.json.JsonObject;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -21,12 +20,12 @@ public class WorkflowTask extends MongoDbObject
 	private boolean finished;
 
 	@Field(name = FIELD_NAME_JSONDATA)
-	private JsonObject jsondata;
+	private String jsonDataString;
 
 	private WorkflowTask()
 	{
 		this.name = "";
-		this.jsondata = null;
+		this.jsonDataString = "";
 		this.running = false;
 		this.finished = false;
 	}
@@ -40,14 +39,14 @@ public class WorkflowTask extends MongoDbObject
 		return result;
 	}
 
-	public void setData(final JsonObject data)
+	public void setData(final String data)
 	{
-		this.jsondata = data;
+		this.jsonDataString = data;
 	}
 
-	public JsonObject getData()
+	public String getData()
 	{
-		return this.jsondata;
+		return this.jsonDataString;
 	}
 
 	public UUID getWorkflowObjId()
