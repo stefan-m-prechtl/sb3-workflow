@@ -25,7 +25,7 @@ public class WorkflowTransition extends MongoDbObject
 	@DocumentReference
 	private WorkflowState toState;
 
-	// Eingegebette Enitität
+	// Eingebettete Enitität
 	private WorkflowRule rule;
 
 	private TransistionType type;

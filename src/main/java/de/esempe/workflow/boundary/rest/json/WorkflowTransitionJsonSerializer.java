@@ -3,6 +3,7 @@ package de.esempe.workflow.boundary.rest.json;
 import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition.FIELD_FROM_STATE;
 import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition.FIELD_ID;
 import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition.FIELD_NAME;
+import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition.FIELD_RULE;
 import static de.esempe.workflow.boundary.rest.json.JsonFieldsWorkflowTransition.FIELD_TO_STATE;
 
 import java.io.IOException;
@@ -19,12 +20,7 @@ import de.esempe.workflow.domain.WorkflowTransition;
 public class WorkflowTransitionJsonSerializer extends JsonSerializer<WorkflowTransition>
 {
 	private WorkflowStateJsonSerializer stateSerializer = new WorkflowStateJsonSerializer();
-	private ConfigJsonSerialization serializationConfig;
-
-	public WorkflowTransitionJsonSerializer(final ConfigJsonSerialization serializationConfig)
-	{
-		this.serializationConfig = serializationConfig;
-	}
+	private WorkflowRuleJsonSerializer ruleSerializer = new WorkflowRuleJsonSerializer();
 
 	@Override
 	public void serialize(final WorkflowTransition transition, final JsonGenerator generator, final SerializerProvider serializers) throws IOException
@@ -38,6 +34,9 @@ public class WorkflowTransitionJsonSerializer extends JsonSerializer<WorkflowTra
 
 		generator.writeFieldName(FIELD_TO_STATE);
 		this.stateSerializer.serialize(transition.getToState(), generator, serializers);
+
+		generator.writeFieldName(FIELD_RULE);
+		this.ruleSerializer.serialize(transition.getRule(), generator, serializers);
 
 		generator.writeEndObject();
 	}

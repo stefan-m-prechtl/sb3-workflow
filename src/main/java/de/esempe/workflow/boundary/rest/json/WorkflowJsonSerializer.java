@@ -18,13 +18,11 @@ import de.esempe.workflow.domain.WorkflowTransition;
 @JsonComponent
 public class WorkflowJsonSerializer extends JsonSerializer<Workflow>
 {
-	private ConfigJsonSerialization serializationConfig;
 	private WorkflowTransitionJsonSerializer serializerTransition;
 
-	public WorkflowJsonSerializer(final ConfigJsonSerialization serializationConfig)
+	public WorkflowJsonSerializer()
 	{
-		this.serializationConfig = serializationConfig;
-		this.serializerTransition = new WorkflowTransitionJsonSerializer(serializationConfig);
+		this.serializerTransition = new WorkflowTransitionJsonSerializer();
 	}
 
 	@Override
@@ -38,16 +36,7 @@ public class WorkflowJsonSerializer extends JsonSerializer<Workflow>
 		generator.writeStartArray();
 		for (final WorkflowTransition transition : workflow.getTransitions())
 		{
-			if (this.serializationConfig.withFullObjReference())
-			{
-				this.serializerTransition.serialize(transition, generator, serializers);
-			}
-			else
-			{
-				generator.writeStartObject();
-				generator.writeStringField(FIELD_ID, transition.getObjId().toString());
-				generator.writeEndObject();
-			}
+			this.serializerTransition.serialize(transition, generator, serializers);
 		}
 		generator.writeEndArray();
 		generator.writeEndObject();

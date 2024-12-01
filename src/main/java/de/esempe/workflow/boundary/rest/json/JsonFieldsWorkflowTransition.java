@@ -6,4 +6,5 @@ public class JsonFieldsWorkflowTransition
 	final static String FIELD_NAME = "name";
 	final static String FIELD_FROM_STATE = "fromstate";
 	final static String FIELD_TO_STATE = "tostate";
+	final static String FIELD_RULE = "rule";
 }

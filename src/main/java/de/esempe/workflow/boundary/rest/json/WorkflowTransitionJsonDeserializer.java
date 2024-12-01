@@ -23,6 +23,7 @@ import de.esempe.workflow.domain.WorkflowTransition;
 public class WorkflowTransitionJsonDeserializer extends JsonDeserializer<WorkflowTransition>
 {
 	private WorkflowStateJsonDeserializer stateDeserializer;
+	private WorkflowRuleJsonDeserializer ruleDeserializer;
 
 	WorkflowTransitionJsonDeserializer()
 	{
