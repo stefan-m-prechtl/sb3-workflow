@@ -1,58 +1,45 @@
 package de.esempe.workflow.boundary.rest.json;
 
-import java.io.IOException;
-
-import org.springframework.boot.jackson.JsonComponent;
-
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
 import de.esempe.workflow.domain.User;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.bind.adapter.JsonbAdapter;
 
-@JsonComponent
-public class UserJsonAdapter
+public class UserJsonAdapter implements JsonbAdapter<User, JsonObject>
 {
-	private static String FIELD_ID = "id";
-	private static String FIELD_FIRSTNAME = "first";
-	private static String FIELD_LASTNAME = "last";
+	private static String FIELD_ID = "user-id";
+	private static String FIELD_FIRSTNAME = "user-firstname";
+	private static String FIELD_LASTNAME = "user-lastname";
 
-	public static class UserJsonSerializer extends JsonSerializer<User>
+	@Override
+	public JsonObject adaptToJson(final User user) throws Exception
 	{
-		@Override
-		public void serialize(final User user, final JsonGenerator generator, final SerializerProvider serializers) throws IOException
-		{
-			generator.writeStartObject();
+		final var result = Json.createObjectBuilder() //
+				.add(FIELD_ID, user.getId()) //
+				.add(FIELD_FIRSTNAME, user.getFirstname())//
+				.add(FIELD_LASTNAME, user.getLastname()) //
+				.build();
 
-			// Get java values and write it into json string
-			generator.writeNumberField(FIELD_ID, user.getId());
-			generator.writeStringField(FIELD_FIRSTNAME, user.getFirstname());
-			generator.writeStringField(FIELD_LASTNAME, user.getLastname());
-
-			generator.writeEndObject();
-		}
+		return result;
 	}
 
-	public static class UserJsonDeserializer extends JsonDeserializer<User>
+	@Override
+	public User adaptFromJson(final JsonObject jsonObj) throws Exception
 	{
-		@Override
-		public User deserialize(final JsonParser parser, final DeserializationContext ctxt) throws IOException, JacksonException
+		User result;
+		final var firstname = jsonObj.getString(FIELD_FIRSTNAME);
+		final var lastname = jsonObj.getString(FIELD_LASTNAME);
+
+		if (jsonObj.containsKey(FIELD_ID))
 		{
-			// Parse json string into a node
-			final JsonNode node = parser.getCodec().readTree(parser);
-			// ID vorhanden?
-			final int id = node.get(FIELD_ID) != null ? node.get(FIELD_ID).asInt() : -1;
-			// Musswerte
-			final String firstname = node.get(FIELD_FIRSTNAME).asText();
-			final String lastname = node.get(FIELD_LASTNAME).asText();
-			// Set java values
-			final User user = User.createWithId(id, firstname, lastname);
-			return user;
+			final var id = jsonObj.getInt(FIELD_ID);
+			result = User.create(id, firstname, lastname);
 		}
+		else
+		{
+			result = User.create(-1, firstname, lastname);
+		}
+
+		return result;
 	}
 }

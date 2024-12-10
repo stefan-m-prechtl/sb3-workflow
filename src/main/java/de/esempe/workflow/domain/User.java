@@ -24,13 +24,12 @@ public class User
 	@NotNull
 	private String lastname;
 
-	public User()
+	User()
 	{
 		this.id = -1;
 	}
 
-	// Für Json-Adapter
-	public static User createWithId(final int id, final String firstname, final String lastname)
+	public static User create(final int id, final String firstname, final String lastname)
 	{
 		final var result = new User();
 		result.id = id;

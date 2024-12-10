@@ -2,9 +2,6 @@ package de.esempe.workflow.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -22,6 +19,8 @@ import de.esempe.workflow.domain.WorkflowState;
 import de.esempe.workflow.domain.WorkflowTask;
 import de.esempe.workflow.domain.WorkflowTransition;
 import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 
 @JsonTest
 @TestMethodOrder(OrderAnnotation.class)
