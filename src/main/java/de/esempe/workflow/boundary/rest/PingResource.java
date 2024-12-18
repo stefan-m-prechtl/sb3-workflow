@@ -35,7 +35,7 @@ public class PingResource
 	}
 
 	@GetMapping(path = "/writer", produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('WRITER')")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('WRITER')")
 	public ResponseEntity<PingResultRecord> getPingWriter()
 	{
 		final var result = this.getPingWithMsg("Ping vom Server für WRITER");
@@ -44,7 +44,7 @@ public class PingResource
 	}
 
 	@GetMapping(path = "/reader", produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('READER')")
+	@PreAuthorize("hasRole('ADMIN') || hasRole('WRITER') || hasRole('READER')")
 	public ResponseEntity<PingResultRecord> getPingReader()
 	{
 		final var result = this.getPingWithMsg("Ping vom Server für READER");

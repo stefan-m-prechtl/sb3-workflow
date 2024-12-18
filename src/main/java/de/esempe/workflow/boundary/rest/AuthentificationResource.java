@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.esempe.workflow.boundary.LoginData;
 import de.esempe.workflow.boundary.rest.security.TokenHandler;
 
 @RestController

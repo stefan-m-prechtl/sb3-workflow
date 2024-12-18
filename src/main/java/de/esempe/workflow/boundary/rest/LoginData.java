@@ -1,4 +1,4 @@
-package de.esempe.workflow.boundary;
+package de.esempe.workflow.boundary.rest;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
  * @author Stefan Prechtl
  *
  */
-public final class LoginData
+final class LoginData
 {
 	@NotEmpty
 	@Size(min = 3, max = 10)
