@@ -20,7 +20,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.boundary.db.UserRepository;
 import de.esempe.workflow.domain.User;
 
 @DataJpaTest
@@ -33,6 +32,7 @@ import de.esempe.workflow.domain.User;
 public class UserRepositoryTest
 {
 	private int id = -1;
+	private String username = "prs";
 	private String firstname = "Stefan";
 	private String lastName = "Prechtl";
 
@@ -66,7 +66,7 @@ public class UserRepositoryTest
 	@DisplayName("Insert data into empty table")
 	void saveInsertTest()
 	{
-		final User entity = new User();
+		final User entity = User.create(this.username);
 		entity.setFirstname(this.firstname);
 		entity.setLastname(this.lastName);
 
@@ -115,8 +115,7 @@ public class UserRepositoryTest
 	@DisplayName("Load data by example from not empty table")
 	void findByExample()
 	{
-		final User exampleUser = new User();
-		exampleUser.setFirstname(this.firstname);
+		final User exampleUser = User.create(this.username);
 
 		// Create matcher which ignores null fields and attribute "id"
 		final ExampleMatcher matcher = ExampleMatcher.matching() //

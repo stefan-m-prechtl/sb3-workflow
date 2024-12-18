@@ -11,7 +11,7 @@ import jakarta.json.bind.JsonbConfig;
 public class JsonbConfigCustomizer
 {
 	@Bean
-	public Jsonb jsonb()
+	Jsonb jsonb()
 	{
 		final JsonbConfig config = new JsonbConfig()//
 				.withAdapters(//

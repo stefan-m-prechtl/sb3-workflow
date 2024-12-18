@@ -1,9 +1,10 @@
 package de.esempe.workflow.boundary.rest.security;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
@@ -14,54 +15,45 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 @Component
 public class TokenHandler
 {
-	private final static String KEY_USERID = "userid";
 	private final static String KEY_USERNAME = "username";
-	private final static String KEY_USERROLE = "userrole";
+	private final static String KEY_USERROLES = "userroles";
 
-	// TODO : sichere Signatur
-	private final static String SECRET = "secret";
+	@Autowired
+	JwtProperties properties;
 
-	private TokenHandler()
+	TokenHandler()
 	{
-		// Keine Instant notwendig!
+
 	}
 
-	public static String createTokenFor(final String userid, final String username, final String userrole)
+	public String createTokenFor(final String username, final List<String> userroles)
 	{
-		final Algorithm algorithm = Algorithm.HMAC256(SECRET);
-		final Map<String, String> payloadClaims = new HashMap<>();
-		payloadClaims.put(KEY_USERID, userid);
-		payloadClaims.put(KEY_USERNAME, username);
-		payloadClaims.put(KEY_USERROLE, userrole);
+		final Algorithm algorithm = Algorithm.HMAC256(this.properties.getSecretKey());
+		final Instant now = Instant.now();
 
-		// //@formatter:off
-		final String token = JWT.create()
-				.withIssuer("esempe")
-				.withSubject("DEMO")
-				.withPayload(payloadClaims)
+		final String token = JWT.create() //
+				.withSubject(username)//
+				.withIssuer("esempe")//
+				.withExpiresAt(now.plus(this.properties.getTokenDuration())) //
+				.withClaim(TokenHandler.KEY_USERNAME, username) //
+				.withClaim(TokenHandler.KEY_USERROLES, userroles) //
 				.sign(algorithm);
-		//@formatter:on
 
 		return token;
 	}
 
-	public static Optional<DecodedJWT> decodeToken(final String token)
+	Optional<DecodedJWT> decodeToken(final String token)
 	{
 		Optional<DecodedJWT> result = Optional.empty();
 		try
 		{
-			final Algorithm algorithm = Algorithm.HMAC256(SECRET);
-			final JWTVerifier verifier = JWT.require(algorithm).withIssuer("esempe").withSubject("DEMO").build();
+			final Algorithm algorithm = Algorithm.HMAC256(this.properties.getSecretKey());
+			final JWTVerifier verifier = JWT.require(algorithm).withIssuer("esempe").build();
 			final DecodedJWT jwt = verifier.verify(token);
-
-			// TODO Token prüfen
-			// jwt.getAudience();
-			// jwt.getExpiresAt()
-			// ...
 
 			result = Optional.of(jwt);
 		}
-		catch (final IllegalArgumentException e)
+		catch (final Exception e)
 		{
 			System.out.println(e);
 		}
@@ -69,19 +61,19 @@ public class TokenHandler
 
 	}
 
-	public static String getUseridFromToken(final DecodedJWT jwt)
+	String getUseridFromToken(final DecodedJWT jwt)
 	{
-		return jwt.getClaim(KEY_USERID).asString();
+		return jwt.getSubject();
 	}
 
-	public static String getUsernameFromToken(final DecodedJWT jwt)
+	String getUsernameFromToken(final DecodedJWT jwt)
 	{
 		return jwt.getClaim(KEY_USERNAME).asString();
 	}
 
-	public static String getUserroleFromToken(final DecodedJWT jwt)
+	List<String> getUserroleFromToken(final DecodedJWT jwt)
 	{
-		return jwt.getClaim(KEY_USERROLE).asString();
+		return jwt.getClaim(KEY_USERROLES).asList(String.class);
 	}
 
 }

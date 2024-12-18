@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "'Secret key for JWT'"
+  },
+  {
+    "name": "security.jwt.token-duration",
+    "type": "java.time.Duration",
+    "description": "Duration-Value for JWT: expires=now()+duration'"
+  }
+]}

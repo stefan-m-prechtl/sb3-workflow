@@ -20,6 +20,8 @@ public class User
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotNull
+	private String username;
+	@NotNull
 	private String firstname;
 	@NotNull
 	private String lastname;
@@ -29,18 +31,30 @@ public class User
 		this.id = -1;
 	}
 
-	public static User create(final int id, final String firstname, final String lastname)
+	public static User create(final int id, final String username)
 	{
 		final var result = new User();
 		result.id = id;
-		result.firstname = firstname;
-		result.lastname = lastname;
+		result.username = username;
+
+		return result;
+	}
+
+	public static User create(final String username)
+	{
+		final var result = new User();
+		result.username = username;
 		return result;
 	}
 
 	public int getId()
 	{
 		return this.id;
+	}
+
+	public String getUsername()
+	{
+		return this.username;
 	}
 
 	public String getFirstname()

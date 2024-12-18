@@ -72,7 +72,8 @@ dependencies {
 	// Guava
 	implementation 'com.google.guava:guava:31.1-jre'
 	// Json Web Token (JWT)
-	implementation 'com.auth0:java-jwt:3.18.3'
+	implementation 'com.auth0:java-jwt:4.4.0'
+	
 	
 	// ****************************************************************************
 	// Alles fürs Testen
