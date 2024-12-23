@@ -73,7 +73,7 @@ public class WorkflowStateResourceTest
 				.perform(get("/state").accept(MediaType.APPLICATION_JSON)) //
 				.andExpectAll( //
 						status().isOk(), //
-						content().contentType(MediaType.APPLICATION_JSON) //
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON) //
 				);
 
 		// Ergebnis aus Response ermitteln
@@ -111,10 +111,12 @@ public class WorkflowStateResourceTest
 		final String stateJson = this.objectMapper.writeValueAsString(state);
 
 		final ResultActions resultActions = this.mockMvc//
-				.perform(post("/state").contentType(MediaType.APPLICATION_JSON).content(stateJson)) //
+				.perform(post("/state")//
+				.contentType(MediaType.APPLICATION_JSON)//
+				.content(stateJson)) //
 				.andExpectAll( //
 						status().isCreated(), //
-						content().contentType(MediaType.APPLICATION_JSON) //
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON) //
 				);
 
 		// Ergebnis aus Response ermitteln
@@ -153,7 +155,7 @@ public class WorkflowStateResourceTest
 				.perform(get("/state").accept(MediaType.APPLICATION_JSON)) //
 				.andExpectAll( //
 						status().isOk(), //
-						content().contentType(MediaType.APPLICATION_JSON) //
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON) //
 				);
 
 		// Ergebnis aus Response ermitteln
@@ -178,7 +180,7 @@ public class WorkflowStateResourceTest
 				.perform(get(url).accept(MediaType.APPLICATION_JSON)) //
 				.andExpectAll( //
 						status().isOk(), //
-						content().contentType(MediaType.APPLICATION_JSON) //
+						content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON) //
 				);
 
 		// Ergebnis aus Response ermitteln

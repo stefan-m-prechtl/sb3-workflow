@@ -20,12 +20,13 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.DatabaseConfig;
 import de.esempe.workflow.boundary.db.listener.WorkflowStateRepositoryListener;
 import de.esempe.workflow.domain.WorkflowState;
 
 @DataMongoTest
 @ActiveProfiles("test")
-@Import(WorkflowStateRepositoryListener.class)
+@Import({WorkflowStateRepositoryListener.class, DatabaseConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

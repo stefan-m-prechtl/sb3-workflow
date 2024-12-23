@@ -1,8 +1,10 @@
 package de.esempe.workflow.domain;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
@@ -10,10 +12,14 @@ public abstract class MongoDbObject
 {
 	@Id // database-id: set from monogdb
 	private ObjectId dbId;
+	
 	protected UUID objId;
 
 	@Indexed(unique = true, sparse = true)
 	protected String name;
+	
+	@CreatedDate
+	protected LocalDateTime createdAt;
 
 	protected MongoDbObject()
 	{
@@ -51,5 +57,15 @@ public abstract class MongoDbObject
 	{
 		this.name = name;
 	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	
 
 }

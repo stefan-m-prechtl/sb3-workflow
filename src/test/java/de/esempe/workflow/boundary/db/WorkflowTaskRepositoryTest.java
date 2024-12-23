@@ -19,13 +19,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.DatabaseConfig;
 import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.domain.WorkflowTask;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 @DataMongoTest
-@Import(WorkflowTaskRepositoryListener.class)
+@Import({WorkflowTaskRepositoryListener.class, DatabaseConfig.class})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)

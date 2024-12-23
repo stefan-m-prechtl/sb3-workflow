@@ -15,9 +15,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.DatabaseConfig;
+import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.domain.WorkflowRule;
 import de.esempe.workflow.domain.WorkflowState;
 import de.esempe.workflow.domain.WorkflowTransition;
@@ -25,6 +28,7 @@ import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
 
 @DataMongoTest
 @ActiveProfiles("test")
+@Import({WorkflowTaskRepositoryListener.class, DatabaseConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
