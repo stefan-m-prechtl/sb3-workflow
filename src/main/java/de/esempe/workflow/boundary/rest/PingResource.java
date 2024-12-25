@@ -1,10 +1,12 @@
 package de.esempe.workflow.boundary.rest;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingResource
 {
 	private ScriptEngine groovyEngine;
+
+	@Autowired(required = false)
+	private IPingWithLocale pingWithLocale;
 
 	public PingResource()
 	{
@@ -111,6 +116,13 @@ public class PingResource
 //			final var body = new PingResultRecord(now, "Ping vom Server: " + valid.toString());
 
 			final LocalDateTime now = LocalDateTime.now();
+
+			if (null != this.pingWithLocale)
+			{
+				final String msg = this.pingWithLocale.ping(Locale.FRENCH);
+				System.out.println(msg);
+			}
+
 			final var body = new PingResultRecord(now, "Ping vom Server");
 
 			final var status = HttpStatus.OK;

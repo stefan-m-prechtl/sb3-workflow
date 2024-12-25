@@ -22,7 +22,7 @@ import jakarta.annotation.PostConstruct;
 public class WorkflowResource
 {
 	@Autowired
-	private WorkflowRepository repository;
+	WorkflowRepository repository;
 
 	@Autowired
 	WorkflowTransitionRepository repositoryTransition;
