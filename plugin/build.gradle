@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':api')
+    // Add other dependencies here
+}

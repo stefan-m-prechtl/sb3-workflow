@@ -22,7 +22,7 @@ public class PingResource
 	private ScriptEngine groovyEngine;
 
 	@Autowired(required = false)
-	private IPingWithLocale pingWithLocale;
+	private PingWithLocale pingWithLocale;
 
 	public PingResource()
 	{

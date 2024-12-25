@@ -1,1 +1,6 @@
-rootProject.name = 'workflow'
+rootProject.name = 'Workflow-Projects'
+
+include 'api', 'plugin', 'workflow'
+project(':api').projectDir = file('api')
+project(':plugin').projectDir = file('plugin')
+project(':workflow').projectDir = file('workflow')

@@ -13,7 +13,7 @@ public class JARLoadingApplicationListener implements ApplicationListener<Applic
 		try
 		{
 			final ApplicationContext context = event.getApplicationContext();
-			DynamicClassLoader.loadJar(context, "/home/etienne/projekte/java/pinghandler/build/libs/pingHandler.jar");
+			DynamicClassLoader.loadJar(context);
 		}
 		catch (final Exception e)
 		{
