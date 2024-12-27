@@ -1,5 +1,7 @@
 package de.esempe.workflow.boundary.rest.json;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import de.esempe.workflow.domain.User;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -9,6 +11,7 @@ public class UserJsonAdapter implements JsonbAdapter<User, JsonObject>
 {
 	private static String FIELD_ID = "user-id";
 	private static String FIELD_USERNAME = "user-name";
+	private static String FIELD_PASSWD = "user-password";
 	private static String FIELD_FIRSTNAME = "user-firstname";
 	private static String FIELD_LASTNAME = "user-lastname";
 
@@ -30,6 +33,7 @@ public class UserJsonAdapter implements JsonbAdapter<User, JsonObject>
 	{
 		User result;
 		final var username = jsonObj.getString(FIELD_USERNAME);
+		final var password = jsonObj.getString(FIELD_PASSWD);
 		final var firstname = jsonObj.getString(FIELD_FIRSTNAME);
 		final var lastname = jsonObj.getString(FIELD_LASTNAME);
 
@@ -44,6 +48,11 @@ public class UserJsonAdapter implements JsonbAdapter<User, JsonObject>
 		}
 		result.setFirstname(firstname);
 		result.setLastname(lastname);
+
+		// Hash clear password
+		final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		final String hashedPassword = passwordEncoder.encode(password);
+		result.setHashedpwd(hashedPassword);
 
 		return result;
 	}

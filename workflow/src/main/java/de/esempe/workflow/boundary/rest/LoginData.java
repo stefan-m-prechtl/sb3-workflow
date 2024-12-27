@@ -1,5 +1,6 @@
 package de.esempe.workflow.boundary.rest;
 
+import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -9,12 +10,14 @@ import jakarta.validation.constraints.Size;
  * @author Stefan Prechtl
  *
  */
-final class LoginData
+public class LoginData
 {
 	@NotEmpty
 	@Size(min = 3, max = 10)
+	@JsonbProperty("user")
 	private String user;
 	@NotEmpty
+	@JsonbProperty("passwd")
 	private String passwd;
 
 	public String getUser()

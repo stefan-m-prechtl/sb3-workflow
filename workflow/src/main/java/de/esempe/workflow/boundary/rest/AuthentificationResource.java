@@ -11,13 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.esempe.workflow.boundary.rest.security.TokenHandler;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("auth")
@@ -29,7 +29,7 @@ public class AuthentificationResource
 	TokenHandler tokenHandler;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody @Validated final LoginData data)
+	public ResponseEntity<String> login(@RequestBody @Valid final LoginData data)
 	{
 		final Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getUser(), data.getPasswd()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS restdemo.t_users (
     id BIGSERIAL PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
+    hashedpwd TEXT NOT NULL,
     firstname VARCHAR(50),
     lastname VARCHAR(50)
 );

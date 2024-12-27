@@ -22,6 +22,8 @@ public class User
 	@NotNull
 	private String username;
 	@NotNull
+	private String hashedpwd;
+	@NotNull
 	private String firstname;
 	@NotNull
 	private String lastname;
@@ -77,4 +79,15 @@ public class User
 		Preconditions.checkNotNull(lastname);
 		this.lastname = lastname;
 	}
+
+	public String getHashedpwd()
+	{
+		return this.hashedpwd;
+	}
+
+	public void setHashedpwd(final String hashedpwd)
+	{
+		this.hashedpwd = hashedpwd;
+	}
+
 }

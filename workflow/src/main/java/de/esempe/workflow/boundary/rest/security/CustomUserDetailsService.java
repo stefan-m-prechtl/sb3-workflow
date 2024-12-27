@@ -31,8 +31,7 @@ class CustomUserDetailsService implements UserDetailsService
 
 		final UserDetails result = org.springframework.security.core.userdetails.User.builder() //
 				.username(user.getUsername()) //
-				// .password("geheim") //
-				.password("$2a$10$xvQL2eEjOXkXtUL0GpaTie9ZyTVbxYAYh4p4CYBTbAHt.JAoDqfgm")// encoded by BCrpyt
+				.password(user.getHashedpwd())//
 				.authorities(authorities) //
 				.accountExpired(false) //
 				.accountLocked(false) //
