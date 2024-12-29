@@ -12,9 +12,6 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
-import de.esempe.workflow.boundary.rest.json.UsedByJsonDeserializer;
-import de.esempe.workflow.boundary.rest.json.WorkflowJsonDeserializer;
-
 @Document(collection = "workflows")
 public class Workflow extends MongoDbObject
 {
@@ -35,7 +32,6 @@ public class Workflow extends MongoDbObject
 		this.toStates = new HashSet<>();
 	}
 
-	@UsedByJsonDeserializer(WorkflowJsonDeserializer.class)
 	public static Workflow create(final UUID objId, final String name)
 	{
 		final var result = new Workflow();

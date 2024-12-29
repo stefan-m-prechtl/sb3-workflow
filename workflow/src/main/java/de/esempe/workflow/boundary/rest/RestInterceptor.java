@@ -14,7 +14,7 @@ public class RestInterceptor implements HandlerInterceptor
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
 	{
 		// Logic before the controller method is called
-		System.out.println("Pre-handle logic executed");
+		System.out.println("Pre-handle:" + request.getRequestURI());
 		return true; // Return false to block the request
 	}
 
@@ -30,5 +30,9 @@ public class RestInterceptor implements HandlerInterceptor
 	{
 		// Logic after the complete request is finished
 		System.out.println("After completion logic executed");
+
+		final int status = response.getStatus();
+		System.out.println("After completion logic executed with state: " + status);
+
 	}
 }

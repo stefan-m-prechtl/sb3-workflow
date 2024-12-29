@@ -123,12 +123,11 @@ public class PingResource
 				System.out.println(msg);
 			}
 
+			// final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			// final String name = authentication.getName();
+
 			final var body = new PingResultRecord(now, "Ping vom Server");
-
-			final var status = HttpStatus.OK;
-
-			// final var result = ResponseEntity.ok(body);
-			final var result = ResponseEntity.status(status).body(body);
+			final var result = ResponseEntity.status(HttpStatus.OK).body(body);
 			return result;
 
 		}

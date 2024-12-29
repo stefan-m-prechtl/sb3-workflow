@@ -8,9 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-import de.esempe.workflow.boundary.rest.json.UsedByJsonDeserializer;
-import de.esempe.workflow.boundary.rest.json.WorkflowStateJsonDeserializer;
-
 @Document(collection = "states")
 public class WorkflowState extends MongoDbObject
 {
@@ -24,7 +21,6 @@ public class WorkflowState extends MongoDbObject
 		this.scriptLeave = "";
 	}
 
-	@UsedByJsonDeserializer(WorkflowStateJsonDeserializer.class)
 	public static WorkflowState create(final UUID objId, final String name)
 	{
 		final var result = new WorkflowState();

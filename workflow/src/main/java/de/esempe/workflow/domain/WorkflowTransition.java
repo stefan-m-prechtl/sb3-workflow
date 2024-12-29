@@ -9,9 +9,6 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-import de.esempe.workflow.boundary.rest.json.UsedByJsonDeserializer;
-import de.esempe.workflow.boundary.rest.json.WorkflowTransitionJsonDeserializer;
-
 @Document(collection = "transitions")
 public class WorkflowTransition extends MongoDbObject
 {
@@ -37,7 +34,6 @@ public class WorkflowTransition extends MongoDbObject
 		this.type = TransistionType.USER;
 	}
 
-	@UsedByJsonDeserializer(WorkflowTransitionJsonDeserializer.class)
 	public static WorkflowTransition create(final UUID objId, final String name, final WorkflowState fromState, final WorkflowState toState)
 	{
 		final var result = new WorkflowTransition();

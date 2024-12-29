@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.DatabaseConfig;
 import de.esempe.workflow.boundary.db.listener.WorkflowStateRepositoryListener;
 import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.domain.Workflow;
