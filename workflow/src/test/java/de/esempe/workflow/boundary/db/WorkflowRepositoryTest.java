@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import de.esempe.workflow.boundary.db.listener.WorkflowStateRepositoryListener;
 import de.esempe.workflow.boundary.db.listener.WorkflowTaskRepositoryListener;
 import de.esempe.workflow.domain.Workflow;
 import de.esempe.workflow.domain.WorkflowState;
@@ -28,7 +27,7 @@ import de.esempe.workflow.domain.WorkflowTransition.TransistionType;
 
 @DataMongoTest
 @ActiveProfiles("test")
-@Import({WorkflowTaskRepositoryListener.class, DatabaseConfig.class})
+@Import({ WorkflowTaskRepositoryListener.class, DatabaseConfigMongo.class })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

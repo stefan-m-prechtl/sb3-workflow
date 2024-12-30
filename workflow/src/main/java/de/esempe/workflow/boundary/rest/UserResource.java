@@ -37,7 +37,7 @@ public class UserResource
 	}
 
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getUser(@PathVariable final int id)
+	public ResponseEntity<?> getUser(@PathVariable final long id)
 	{
 		final Optional<User> dbResult = this.repository.findById(id);
 		if (dbResult.isEmpty())
@@ -51,7 +51,7 @@ public class UserResource
 	}
 
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable final int id)
+	public ResponseEntity<?> deleteUser(@PathVariable final long id)
 	{
 		final boolean exists = this.repository.existsById(id);
 		if (!exists)

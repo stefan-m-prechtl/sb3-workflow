@@ -17,7 +17,7 @@ public class GlobalRole
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(name = "rolename")
 	@NotNull
 	private String roleName;
@@ -26,10 +26,10 @@ public class GlobalRole
 
 	GlobalRole()
 	{
-		id = -1;
+		this.id = -1L;
 	}
 
-	public static GlobalRole create(final int id, final String roleName)
+	static GlobalRole create(final long id, final String roleName)
 	{
 		final var result = new GlobalRole();
 		result.id = id;
@@ -38,26 +38,26 @@ public class GlobalRole
 		return result;
 	}
 
-	public static GlobalRole create(final String roleName)
+	static GlobalRole create(final String roleName)
 	{
 		final var result = new GlobalRole();
 		result.roleName = roleName;
 		return result;
 	}
 
-	public Integer getId()
+	public Long getId()
 	{
-		return id;
+		return this.id;
 	}
 
 	public String getRoleName()
 	{
-		return roleName;
+		return this.roleName;
 	}
 
 	public String getDescription()
 	{
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description)

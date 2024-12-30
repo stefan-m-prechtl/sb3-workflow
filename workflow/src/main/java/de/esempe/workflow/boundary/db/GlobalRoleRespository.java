@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.esempe.workflow.domain.GlobalRole;
 
-public interface GlobalRoleRespository extends JpaRepository<GlobalRole, Integer>
+public interface GlobalRoleRespository extends JpaRepository<GlobalRole, Long>
 {
 	List<GlobalRole> findByRoleName(String rolename);
 

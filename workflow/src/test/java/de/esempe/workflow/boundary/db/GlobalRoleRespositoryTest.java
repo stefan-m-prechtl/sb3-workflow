@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.domain.DomainFactory;
 import de.esempe.workflow.domain.GlobalRole;
 
 @DataJpaTest
@@ -35,7 +36,7 @@ public class GlobalRoleRespositoryTest
 	private final String rolename = "test-role";
 	private final String description = "test-role description";
 
-	private int id = -1;
+	private long id = -1L;
 
 	@Test
 	@Order(1)
@@ -64,7 +65,7 @@ public class GlobalRoleRespositoryTest
 	@DisplayName("Insert data into empty table")
 	void saveInsertTest()
 	{
-		final GlobalRole entity = GlobalRole.create(this.rolename);
+		final GlobalRole entity = DomainFactory.createGlobalRole(this.rolename);
 		entity.setDescription(this.description);
 
 		final GlobalRole savedEntity = this.objUnderTest.save(entity);

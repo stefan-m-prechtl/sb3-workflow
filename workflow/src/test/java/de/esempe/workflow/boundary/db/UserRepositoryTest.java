@@ -14,16 +14,22 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import de.esempe.workflow.boundary.db.listener.CommonRepositoryEventListener;
+import de.esempe.workflow.domain.DomainFactory;
 import de.esempe.workflow.domain.User;
 
-@DataJpaTest
+//@DataJpaTest
+@SpringBootTest
 @ActiveProfiles("test")
+@Import({ CommonRepositoryEventListener.class, DatabaseConfigPostgres.class })
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -31,13 +37,16 @@ import de.esempe.workflow.domain.User;
 @Tag("integration-test")
 public class UserRepositoryTest
 {
-	private int id = -1;
+	private long id = -1L;
 	private String username = "prs";
 	private String firstname = "Stefan";
 	private String lastName = "Prechtl";
 
 	@Autowired
 	UserRepository objUnderTest;
+
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Test
 	@Order(1)
@@ -66,9 +75,11 @@ public class UserRepositoryTest
 	@DisplayName("Insert data into empty table")
 	void saveInsertTest()
 	{
-		final User entity = User.create(this.username);
+		final User entity = DomainFactory.createUser(this.username);
 		entity.setFirstname(this.firstname);
 		entity.setLastname(this.lastName);
+
+		final CommonRepositoryEventListener bean = this.applicationContext.getBean(CommonRepositoryEventListener.class);
 
 		final User savedEntity = this.objUnderTest.save(entity);
 		assertThat(savedEntity).isNotNull();
@@ -115,7 +126,7 @@ public class UserRepositoryTest
 	@DisplayName("Load data by example from not empty table")
 	void findByExample()
 	{
-		final User exampleUser = User.create(this.username);
+		final User exampleUser = DomainFactory.createUser(this.username);
 
 		// Create matcher which ignores null fields and attribute "id"
 		final ExampleMatcher matcher = ExampleMatcher.matching() //

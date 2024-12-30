@@ -1,5 +1,9 @@
 package de.esempe.workflow.domain;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+
 import com.google.common.base.Preconditions;
 
 import jakarta.persistence.Access;
@@ -8,6 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,7 +25,7 @@ public class User
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@NotNull
 	private String username;
 	@NotNull
@@ -28,28 +35,37 @@ public class User
 	@NotNull
 	private String lastname;
 
+	@ManyToMany
+	@JoinTable(schema = "restdemo", name = "t_users2globalroles", //
+			joinColumns = @JoinColumn(name = "userid"), // FK User
+			inverseJoinColumns = @JoinColumn(name = "roleid") // FK GlobalRole
+	)
+	private Set<GlobalRole> globalRoles;
+
 	User()
 	{
-		this.id = -1;
+		this.id = -1L;
 	}
 
-	public static User create(final int id, final String username)
+	static User create(final long id, final String username)
 	{
 		final var result = new User();
 		result.id = id;
 		result.username = username;
+		result.hashedpwd = "";
 
 		return result;
 	}
 
-	public static User create(final String username)
+	static User create(final String username)
 	{
 		final var result = new User();
 		result.username = username;
+		result.hashedpwd = "";
 		return result;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return this.id;
 	}
@@ -88,6 +104,11 @@ public class User
 	public void setHashedpwd(final String hashedpwd)
 	{
 		this.hashedpwd = hashedpwd;
+	}
+
+	public Collection<GlobalRole> getGlobalRoles()
+	{
+		return Collections.unmodifiableSet(this.globalRoles);
 	}
 
 }

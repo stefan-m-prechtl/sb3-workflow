@@ -25,7 +25,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 @DataMongoTest
-@Import({WorkflowTaskRepositoryListener.class, DatabaseConfig.class})
+@Import({WorkflowTaskRepositoryListener.class, DatabaseConfigMongo.class})
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)

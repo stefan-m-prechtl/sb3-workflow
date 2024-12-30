@@ -25,7 +25,7 @@ import de.esempe.workflow.domain.WorkflowState;
 
 @DataMongoTest
 @ActiveProfiles("test")
-@Import({WorkflowStateRepositoryListener.class, DatabaseConfig.class})
+@Import({WorkflowStateRepositoryListener.class, DatabaseConfigMongo.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

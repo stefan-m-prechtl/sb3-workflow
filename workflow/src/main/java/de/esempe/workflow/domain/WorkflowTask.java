@@ -16,6 +16,9 @@ public class WorkflowTask extends MongoDbObject
 	private UUID workflowObjId;
 	private UUID currentStateObjId;
 
+	private long userIdCreator;
+	private long userIdDelegator;
+
 	private boolean running;
 	private boolean finished;
 
@@ -28,6 +31,8 @@ public class WorkflowTask extends MongoDbObject
 		this.jsonDataString = "";
 		this.running = false;
 		this.finished = false;
+		this.userIdCreator = -1L;
+		this.userIdDelegator = -1L;
 	}
 
 	public static WorkflowTask create(final UUID workflowObjId, final String name)
@@ -85,6 +90,26 @@ public class WorkflowTask extends MongoDbObject
 	{
 		this.running = false;
 		this.finished = finished;
+	}
+
+	public long getUserIdCreator()
+	{
+		return this.userIdCreator;
+	}
+
+	public void setUserIdCreator(long userIdCreator)
+	{
+		this.userIdCreator = userIdCreator;
+	}
+
+	public long getUserIdDelegator()
+	{
+		return this.userIdDelegator;
+	}
+
+	public void setUserIdDelegator(long userIdDelegator)
+	{
+		this.userIdDelegator = userIdDelegator;
 	}
 
 	@Override
