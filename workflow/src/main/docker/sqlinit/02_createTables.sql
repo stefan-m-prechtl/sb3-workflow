@@ -31,7 +31,10 @@ CREATE TABLE IF NOT EXISTS restdemo.t_users2globalroles (
 CREATE TABLE IF NOT EXISTS restdemo.t_users2workflowroles (
     userid BIGINT NOT NULL,
     roleid BIGINT NOT NULL,
-    PRIMARY KEY (userid, roleid)
+    PRIMARY KEY (userid, roleid),
+    FOREIGN KEY (userid) REFERENCES restdemo.t_users(id),
+    FOREIGN KEY (roleid) REFERENCES restdemo.t_workflowroles(id)
+
 );
 
 
