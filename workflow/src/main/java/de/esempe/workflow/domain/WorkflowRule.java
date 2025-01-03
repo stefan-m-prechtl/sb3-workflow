@@ -1,5 +1,7 @@
 package de.esempe.workflow.domain;
 
+import java.util.UUID;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.google.common.base.MoreObjects;
@@ -11,6 +13,15 @@ public class WorkflowRule extends MongoDbObject
 
 	private WorkflowRule()
 	{
+	}
+
+	public static WorkflowRule create(final UUID objId, final String name, final String script)
+	{
+		final var result = new WorkflowRule();
+		result.objId = objId;
+		result.name = name;
+		result.script = script;
+		return result;
 	}
 
 	public static WorkflowRule create(final String name, final String script)
