@@ -2,11 +2,9 @@ package de.esempe.workflow.domain;
 
 import java.util.UUID;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.google.common.base.MoreObjects;
 
-@Document(collection = "rules")
+//@Document(collection = "rules")
 public class WorkflowRule extends MongoDbObject
 {
 	private String script;

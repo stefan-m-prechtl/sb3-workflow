@@ -20,7 +20,7 @@ public class WorkflowJsonAdapter implements JsonbAdapter<Workflow, JsonObject>
 	private static String FIELD_TRANSITIONS = "transitions";
 
 	@Override
-	public JsonObject adaptToJson(Workflow workflow) throws Exception
+	public JsonObject adaptToJson(final Workflow workflow) throws Exception
 	{
 		final var result = Json.createObjectBuilder() //
 				.add(FIELD_ID, workflow.getObjId().toString()) //
@@ -31,7 +31,7 @@ public class WorkflowJsonAdapter implements JsonbAdapter<Workflow, JsonObject>
 		return result;
 	}
 
-	private JsonArrayBuilder adaptTransitionsToJson(Collection<WorkflowTransition> transitions) throws Exception
+	private JsonArrayBuilder adaptTransitionsToJson(final Collection<WorkflowTransition> transitions) throws Exception
 	{
 		final JsonArrayBuilder result = Json.createArrayBuilder();
 		final WorkflowTransitionJsonAdapter adapter = new WorkflowTransitionJsonAdapter();
@@ -45,9 +45,9 @@ public class WorkflowJsonAdapter implements JsonbAdapter<Workflow, JsonObject>
 	}
 
 	@Override
-	public Workflow adaptFromJson(JsonObject jsonObj) throws Exception
+	public Workflow adaptFromJson(final JsonObject jsonObj) throws Exception
 	{
-		Workflow result;
+		Workflow result = null;
 		final WorkflowTransitionJsonAdapter adapter = new WorkflowTransitionJsonAdapter();
 		final String name = jsonObj.getString(FIELD_NAME);
 		final JsonArray jsonTransitionsValue = jsonObj.getJsonArray(FIELD_TRANSITIONS);
