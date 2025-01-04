@@ -70,7 +70,7 @@ class TaskControllerTest
 	@Order(10)
 	void createDauer4()
 	{
-		final WorkflowTask task = WorkflowTask.create(this.workflow.getObjId(), "SW-Genehmigung");
+		final WorkflowTask task = WorkflowTask.create("SW-Genehmigung");
 		// Daten als JSON erzeugen
 		final JsonObject data = Json.createObjectBuilder()//
 				.add("pc", "R9575") //
@@ -78,6 +78,7 @@ class TaskControllerTest
 				.add("begründung", "SW-Installation")//
 				.build();
 		task.setData(data.toString());
+		task.setWorkflowObjId(this.workflow.getObjId());
 
 		this.objUnderTest = TaskController.create(this.workflow, task);
 		assertThat(this.objUnderTest).isNotNull();

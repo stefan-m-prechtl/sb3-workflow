@@ -35,12 +35,19 @@ public class WorkflowTask extends MongoDbObject
 		this.userIdDelegator = -1L;
 	}
 
-	public static WorkflowTask create(final UUID workflowObjId, final String name)
+	public static WorkflowTask create(final UUID objId, final String name)
 	{
 		final var result = new WorkflowTask();
-		result.workflowObjId = workflowObjId;
+		result.objId = objId;
 		result.name = name;
 
+		return result;
+	}
+
+	public static WorkflowTask create(final String name)
+	{
+		final var result = new WorkflowTask();
+		result.name = name;
 		return result;
 	}
 
@@ -52,6 +59,11 @@ public class WorkflowTask extends MongoDbObject
 	public String getData()
 	{
 		return this.jsonDataString;
+	}
+
+	public void setWorkflowObjId(final UUID workflowObjId)
+	{
+		this.workflowObjId = workflowObjId;
 	}
 
 	public UUID getWorkflowObjId()
@@ -97,7 +109,7 @@ public class WorkflowTask extends MongoDbObject
 		return this.userIdCreator;
 	}
 
-	public void setUserIdCreator(long userIdCreator)
+	public void setUserIdCreator(final long userIdCreator)
 	{
 		this.userIdCreator = userIdCreator;
 	}
@@ -107,7 +119,7 @@ public class WorkflowTask extends MongoDbObject
 		return this.userIdDelegator;
 	}
 
-	public void setUserIdDelegator(long userIdDelegator)
+	public void setUserIdDelegator(final long userIdDelegator)
 	{
 		this.userIdDelegator = userIdDelegator;
 	}
