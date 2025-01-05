@@ -22,18 +22,22 @@ public class WorkflowTaskJsonAdapter implements JsonbAdapter<WorkflowTask, JsonO
 	@Override
 	public JsonObject adaptToJson(final WorkflowTask task) throws Exception
 	{
-		final var result = Json.createObjectBuilder() //
+		final var builder = Json.createObjectBuilder() //
 				.add(FIELD_ID, task.getObjId().toString()) //
 				.add(FIELD_NAME, task.getName())//
 				.add(FIELD_DATA, task.getData())//
 				.add(FIELD_WORKFLOW_ID, task.getWorkflowObjId().toString())//
-				.add(FIELD_STATE_ID, task.getCurrentStateObjId().toString())//
 				.add(FIELD_CREATOR_ID, task.getUserIdCreator())//
 				.add(FIELD_DELEGATOR_ID, task.getUserIdDelegator())//
 				.add(FIELD_RUNNING, task.isRunning())//
-				.add(FIELD_FINISHED, task.isFinished())//
-				.build();
+				.add(FIELD_FINISHED, task.isFinished());
 
+		if (task.getCurrentStateObjId().isPresent())
+		{
+			builder.add(FIELD_STATE_ID, task.getCurrentStateObjId().toString());
+		}
+
+		final var result = builder.build();
 		return result;
 	}
 

@@ -52,6 +52,11 @@ public class Workflow extends MongoDbObject
 		return this.transitions;
 	}
 
+	public void setTransitions(final Set<WorkflowTransition> transitions)
+	{
+		this.transitions = transitions;
+	}
+
 	public void addTransition(final WorkflowTransition transition)
 	{
 		if (this.transitions.contains(transition))
@@ -142,6 +147,18 @@ public class Workflow extends MongoDbObject
 	{
 		final List<WorkflowTransition> result = this.transitions.stream().filter(t -> t.getFromState().getName().equals(name)).toList();
 		return result;
+	}
+
+	public void populateStatesFromTransitions()
+	{
+		this.fromStates.clear();
+		this.toStates.clear();
+
+		for (final WorkflowTransition transition : this.transitions)
+		{
+			this.fromStates.add(transition.getFromState());
+			this.toStates.add(transition.getToState());
+		}
 	}
 
 	@Override
