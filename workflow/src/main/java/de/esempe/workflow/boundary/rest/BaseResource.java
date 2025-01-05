@@ -45,7 +45,7 @@ class BaseResource<T extends MongoDbObject>
 		return result;
 	}
 
-	public ResponseEntity<T> getOneByNameId(final String name)
+	public ResponseEntity<T> getOneByName(final String name)
 	{
 
 		final T dbResult = this.repository.findByName(name);

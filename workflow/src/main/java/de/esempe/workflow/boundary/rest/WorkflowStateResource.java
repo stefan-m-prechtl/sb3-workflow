@@ -51,9 +51,9 @@ public class WorkflowStateResource
 	}
 
 	@GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<WorkflowState> getStateByName(@RequestParam(required = true) final String name)
+	public ResponseEntity<WorkflowState> searchByName(@RequestParam(required = true) final String name)
 	{
-		final var result = this.resource.getOneByNameId(name);
+		final var result = this.resource.getOneByName(name);
 		return result;
 	}
 

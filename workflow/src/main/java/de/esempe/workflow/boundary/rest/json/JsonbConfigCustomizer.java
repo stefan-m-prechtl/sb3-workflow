@@ -17,6 +17,7 @@ public class JsonbConfigCustomizer
 				.withAdapters(//
 						new WorkflowStateJsonAdapter(), //
 						new WorkflowTransitionJsonAdapter(), //
+						new WorkflowTaskJsonAdapter(), //
 						new WorkflowJsonAdapter(), //
 						new UserJsonAdapter()//
 				);
