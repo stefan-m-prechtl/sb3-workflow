@@ -11,6 +11,8 @@ public class WorkflowStateJsonAdapter implements JsonbAdapter<WorkflowState, Jso
 {
 	private static String FIELD_ID = "id";
 	private static String FIELD_NAME = "name";
+	private static String FIELD_SCRIPT_ENTER = "scriptEnter";
+	private static String FIELD_SCRIPT_LEAVE = "scriptLeave";
 
 	@Override
 	public JsonObject adaptToJson(WorkflowState state) throws Exception
@@ -18,6 +20,8 @@ public class WorkflowStateJsonAdapter implements JsonbAdapter<WorkflowState, Jso
 		final var result = Json.createObjectBuilder() //
 				.add(FIELD_ID, state.getObjId().toString()) //
 				.add(FIELD_NAME, state.getName())//
+				.add(FIELD_SCRIPT_ENTER, state.getScriptEnter())//
+				.add(FIELD_SCRIPT_LEAVE, state.getScriptLeave())//
 				.build();
 
 		return result;
@@ -39,6 +43,11 @@ public class WorkflowStateJsonAdapter implements JsonbAdapter<WorkflowState, Jso
 		{
 			result = WorkflowState.create(name);
 		}
+
+		final String scriptEnter = jsonObj.getString(FIELD_SCRIPT_ENTER);
+		final String scriptLeave = jsonObj.getString(FIELD_SCRIPT_LEAVE);
+		result.setScriptEnter(scriptEnter);
+		result.setScriptLeave(scriptLeave);
 
 		return result;
 	}

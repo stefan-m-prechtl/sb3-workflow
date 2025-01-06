@@ -34,7 +34,7 @@ public class WorkflowTaskJsonAdapter implements JsonbAdapter<WorkflowTask, JsonO
 
 		if (task.getCurrentStateObjId().isPresent())
 		{
-			builder.add(FIELD_STATE_ID, task.getCurrentStateObjId().toString());
+			builder.add(FIELD_STATE_ID, task.getCurrentStateObjId().get().toString());
 		}
 
 		final var result = builder.build();
