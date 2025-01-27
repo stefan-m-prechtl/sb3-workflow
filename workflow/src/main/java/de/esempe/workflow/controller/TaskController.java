@@ -53,7 +53,7 @@ public class TaskController
 		this.task.setCurrentStateObjId(state.getObjId());
 		this.executeScriptEnterCurrentState();
 
-		// Neu Status ist finaler Status? Workflow endet!
+		// Neuer Status ist finaler Status? --> Workflow endet!
 		if (this.workflow.isFinalState(state))
 		{
 			this.task.setFinished(true);
