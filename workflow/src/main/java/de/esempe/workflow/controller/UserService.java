@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.esempe.workflow.boundary.db.UserRepository;
+import de.esempe.workflow.boundary.db.UserRepositoryImpl;
 import de.esempe.workflow.domain.User;
 
 @Service
 public class UserService
 {
 	@Autowired
-	UserRepository repository;
+	UserRepositoryImpl repository;
 
 	public Optional<User> loadUserByUsername(final String username)
 	{

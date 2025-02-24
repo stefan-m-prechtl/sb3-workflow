@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,5 +42,11 @@ public class AuthentificationResource
 		final String token = this.tokenHandler.createTokenFor(name, roles);
 		final var result = ResponseEntity.status(HttpStatus.OK).body(token);
 		return result;
+	}
+
+	@GetMapping("/refresh")
+	public ResponseEntity<String> refreshAccessToken()
+	{
+		return null;
 	}
 }

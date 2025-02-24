@@ -9,9 +9,6 @@ import com.google.common.base.Preconditions;
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -21,11 +18,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(schema = "restdemo", name = "t_users")
 @Access(AccessType.FIELD)
-public class User
+public class User extends AbstractEntity
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	@NotNull
 	private String username;
 	@NotNull
@@ -44,7 +38,7 @@ public class User
 
 	User()
 	{
-		this.id = -1L;
+		super();
 	}
 
 	static User create(final long id, final String username)
@@ -63,11 +57,6 @@ public class User
 		result.username = username;
 		result.hashedpwd = "";
 		return result;
-	}
-
-	public long getId()
-	{
-		return this.id;
 	}
 
 	public String getUsername()

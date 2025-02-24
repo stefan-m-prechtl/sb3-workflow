@@ -43,7 +43,7 @@ public class UserRepositoryTest
 	private String lastName = "Prechtl";
 
 	@Autowired
-	UserRepository objUnderTest;
+	UserRepositoryImpl objUnderTest;
 
 	@Autowired
 	private ApplicationContext applicationContext;

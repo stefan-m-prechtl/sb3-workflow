@@ -6,6 +6,15 @@ CREATE TABLE IF NOT EXISTS restdemo.t_users (
     lastname VARCHAR(50)
 );
 
+CREATE TABLE IF NOT EXISTS restdemo.t_refreshtokens (
+    id BIGSERIAL PRIMARY KEY,
+    userid BIGINT NOT NULL,
+    hashedpwd TEXT NOT NULL,
+    token VARCHAR(36) NOT NULL,
+    expirydate TIMESTAMP NOT NULL,
+    FOREIGN KEY (userid) REFERENCES restdemo.t_users(id)
+);
+
 
 CREATE TABLE IF NOT EXISTS restdemo.t_globalroles (
     id BIGSERIAL PRIMARY KEY,

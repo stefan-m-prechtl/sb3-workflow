@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import de.esempe.workflow.boundary.db.UserRepository;
+import de.esempe.workflow.boundary.db.UserRepositoryImpl;
 import de.esempe.workflow.domain.User;
 
 @RestController
@@ -26,7 +26,7 @@ import de.esempe.workflow.domain.User;
 public class UserResource
 {
 	@Autowired
-	private UserRepository repository;
+	private UserRepositoryImpl repository;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> getAll()
